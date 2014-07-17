@@ -9,7 +9,7 @@
 # DIRECTIONS: 
 # 1) install Scrapy
 # 2) edit domain and start url to correct address
-# 3) run this script with: scrapy crawl dmoz -o items.json
+# 3) run this script with: scrapy crawl courses -o items.json
 
 import scrapy
 
@@ -19,27 +19,37 @@ class CoursesSpider(scrapy.Spider):
     name = "courses"
     allowed_domains = ["localhost3"]
     start_urls = [
-        "http://localhost3"
+        "http://localhost-scrapy"
     ]
 
     def parse(self, response):
 
         rows = response.xpath('//tr')
-        print '\n\n\n*********************\n'
-        print rows
-        print '\n*********************\n\n'
+        # print '\n\n\n*********************\n'
+        # print rows
+        # print '\n*********************\n\n'
         
         for sel in rows:
             item = CourseItem()
+
+            # if it's a row with no td's then skip
+
+
+            if not sel.xpath('./td/text()').extract(): continue
+
+
+
             
 
             print '\n\n\n*********************\n'
-            print rows.xpath('./td/text()')[0].extract()
+            print 'ROW: '
+            print sel.xpath('./td/text()').extract();
             print '\n*********************\n\n'
 
-            item['id'] = sel.xpath('./td/text()')[0].extract()
-            item['name'] = sel.xpath('./td/text()')[1].extract()
-            item['color'] = sel.xpath('./td/text()')[2].extract()
+            
+            item['feild1'] = sel.xpath('./td/text()')[0].extract()
+            item['feild2'] = sel.xpath('./td/text()')[1].extract()
+            item['feild3'] = sel.xpath('./td/text()')[2].extract()
             yield item
 
 

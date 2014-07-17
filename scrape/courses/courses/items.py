@@ -8,7 +8,7 @@
 import scrapy
 
 class CourseItem(scrapy.Item):
-    id = scrapy.Field()
-    name = scrapy.Field()
-    color = scrapy.Field()
+    feild1 = scrapy.Field()
+    feild2 = scrapy.Field()
+    feild3 = scrapy.Field()
     
