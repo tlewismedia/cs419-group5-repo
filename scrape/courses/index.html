@@ -1,37 +1,752 @@
-<!doctype html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>Document</title>
-</head>
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>
+	Oregon State University Online Catalog - Schedule of Classes
+</title><meta http-equiv="Keywords" content="Oregon State University, " /><meta content="Information about Oregon State University" name="Description" /><meta content="Oregon State University" name="Author" /><meta content="Oregon State University" name="Copyright" /><meta content="General" name="Rating" /><meta content="All" name="Robots" />
+    <script type="text/javascript" src="scripts/jquery-1.3.2.min.js"></script>
+    
+    <!-- Performs legend toggling -->
+    <script type="text/javascript" src="scripts/legendtoggle/legendtoggle.js"></script>
+<link href="App_Themes/MainTheme/main.css" type="text/css" rel="stylesheet" /></head>
 <body>
+    <a name="top"></a>
+    <table id="ctl00_tblHeader" style="width: 98%; border: none;" cellpadding="0" cellspacing="0">
+	<tr style="background-color: White">
+		<td valign="middle" align="left">
+                
+            </td>
+		<td align="right" valign="middle">
+                <img id="ctl00_imapSmallLinkBar" title="OSU Links" src="images/osusmalllinkbar.gif" usemap="#ImageMapctl00_imapSmallLinkBar" style="border-width:0px;" /><map name="ImageMapctl00_imapSmallLinkBar" id="ImageMapctl00_imapSmallLinkBar">
+			<area shape="rect" coords="0,0,82,18" href="http://directory.oregonstate.edu/" title="Find Someone" alt="Find Someone" /><area shape="rect" coords="82,0,118,18" href="http://oregonstate.edu/campusmap/" title="Campus Maps" alt="Campus Maps" /><area shape="rect" coords="118,0,177,18" href="http://oregonstate.edu/siteindex.html" title="OSU Site Map" alt="OSU Site Map" />
+		</map>
+            </td>
+	</tr>
+	<tr>
+		<td style="background-color: #CC5500; width: 99%; white-space: nowrap; vertical-align: middle">
+                <h1 style="font-family:Verdana, Arial, Helvetica, sans-serif; color: #FFFFFF; margin-left: 18px; font-weight: 700; font-size: x-large ">
+                    General Catalog & Schedule of Classes
+                </h1>
+            </td>
+		<td style="vertical-align: middle; background-color: #CC5500; width: 1%; text-align: right; white-space: nowrap">
+                <a href="http://oregonstate.edu">
+                    <img src="https://secure.oregonstate.edu/u_central/images/orangeWordmark.gif" alt="Oregon State University" width="262" height="47" border="0" /></a>
+            </td>
+	</tr>
+	<tr>
+		<td style="background-color: Black; white-space: nowrap;" colspan="2">
+                <img id="ctl00_imapOSULinkBar" title="OSU Links" src="images/osulinkbar.gif" usemap="#ImageMapctl00_imapOSULinkBar" style="border-width:0px;" /><map name="ImageMapctl00_imapOSULinkBar" id="ImageMapctl00_imapOSULinkBar">
+			<area shape="rect" coords="6,0,77,19" href="http://www.oregonstate.edu/" title="OSU Home" alt="OSU Home" /><area shape="rect" coords="77,0,205,19" href="http://www.oregonstate.edu/admissions/" title="Prospective Students" alt="Prospective Students" /><area shape="rect" coords="205,0,310,19" href="http://www.oregonstate.edu/students/" title="Current Students" alt="Current Students" /><area shape="rect" coords="310,0,402,19" href="http://oregonstate.edu/main/faculty-staff/" title="Faculty &amp; Staff" alt="Faculty &amp; Staff" /><area shape="rect" coords="402,0,507,19" href="http://www.osualum.com" title="Alumni &amp; Friends" alt="Alumni &amp; Friends" /><area shape="rect" coords="507,0,561,19" href="http://oregonstate.edu/visitosu/index.php" title="Visitors" alt="Visitors" />
+		</map>
+            </td>
+	</tr>
+	<tr>
+		<td style="width: 99%">
+                <table id="ctl00_Table4" border="0" cellpadding="0" cellspacing="0">
+			<tr>
+				<td style="vertical-align: top; height: 43px; width: 41px; white-space: nowrap">
+                            
+                            <a href="#JumpList" >
+                            <img id="ctl00_imgBenny" title="See Quick-Jumps" src="images/icon/benny.gif" /></a>
+                        </td>
+				<td style="vertical-align: middle; white-space: nowrap">
+                            <form id="formQuickJump" title="Quick-Jump Form" style="display: inline" method="post" action="/QuickJump.aspx" >
+                                <table id="ctl00_tblQuickJump" cellpadding="0" cellspacing="0" border="0">
+					<tr>
+						<td valign="top">
+                                            <span class="homelink"><strong>&nbsp;&nbsp;Quick-Jump:&nbsp;</strong></span>
+                                        </td>
+						<td nowrap="nowrap" valign="middle">
+                                            <input type="text" id="txtJumpWords" size="10" name="txtJumpWords" />&nbsp;&nbsp;
+                                           <input src="/images/goBtn.gif" name="ctl00$imgJumpKeywordButton" type="image" id="ctl00_imgJumpKeywordButton" alt="GO" value="Go" border="0" />
+                                            <br />
+                                            <a href="QuickJumpHelp.aspx" class="headerlink">What is Quick-Jump?</a>
+                                        </td>
+					</tr>
+				</table>
+				
+                            </form>
+                        </td>
+			</tr>
+		</table>
+		
+            </td>
+		<td style="vertical-align: top; width: 1%; text-align: right; white-space: nowrap">
+                <img id="ctl00_imapCatLinks" title="Catalog Links" src="images/catbar.gif" usemap="#ImageMapctl00_imapCatLinks" style="border-width:0px;" /><map name="ImageMapctl00_imapCatLinks" id="ImageMapctl00_imapCatLinks">
+			<area shape="rect" coords="0,0,71,18" href="Default.aspx" title="Catalog Home" alt="Catalog Home" /><area shape="rect" coords="71,0,144,18" href="SiteMap.aspx" title="Catlog Index" alt="Catlog Index" /><area shape="rect" coords="144,0,221,18" href="GeneralSearcher.aspx" title="Catalog Search" alt="Catalog Search" /><area shape="rect" coords="221,0,302,18" href="Archive.aspx" title="Catalog Archive" alt="Catalog Archive" /><area shape="rect" coords="302,0,372,18" href="Help.aspx" title="Catalog Help" alt="Catalog Help" />
+		</map>
+            </td>
+	</tr>
+</table>
 
-	<table cellspacing="0" rules="all" border="1" id="ctl00_ContentPlaceHolder1_dlCourses_ctl01_SOCListUC1_gvOfferings" style="background-color:White;font-size:10pt;border-collapse:collapse;">
+    <br />
+    <form method="post" action="SOCList.aspx?subjectcode=BI&amp;termcode=201500&amp;campus=corvallis&amp;columns=bcfjk" id="aspnetForm">
+<div class="aspNetHidden">
+<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="ctl00$ContentPlaceHolder1$Button" />
+<input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="" />
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="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" />
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+var theForm = document.forms['aspnetForm'];
+if (!theForm) {
+    theForm = document.aspnetForm;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</script>
+
+
+<script src="/WebResource.axd?d=pynGkmcFUV13He1Qd6_TZOa9YstkEjgmGi9nU0Pbk7OUKNuH1-AxACgO_WOIViXac-Nrw2qq10PtbySY6Cm6tA2&amp;t=635207138953880130" type="text/javascript"></script>
+
+<div class="aspNetHidden">
+
+	<input type="hidden" name="__SCROLLPOSITIONX" id="__SCROLLPOSITIONX" value="0" />
+	<input type="hidden" name="__SCROLLPOSITIONY" id="__SCROLLPOSITIONY" value="0" />
+	<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="DNQ7+JySvD0UoFvnHa8zkYZpl7pm/FFvsZCF3vFTbG1Qvn72SxtA7Hp429EdQDafbSDfrDIVZS3A4JCzcVMkHpnoGGjQf3anjnFXZCMuEfsZKFmoqINdBnWgwr/RkrS7HHMVAqKurMCr0++SRqDJwLZ1UlQiK+TZOUEW8XWpAHYTfnyxSajm1lbOUuQS3BaIQQgaBGyUxkfTyA9khmX3WDssJIf+Uwd0Af7bIIkEy4pVztg16yXVzjdrO0ZDeygBBNfW6ehN5ecNY6BAqeVyKttHgW/RY01thU+YjKqN159Owl+qzpTl8BDEiD8uKHXkriRRt6CcxSlO1hLxQM8gtaj/zN0N3iWlxRHcg5xzJtYol1bRPVqzkPSQa/j/w8oIL9A+aTJMQ9srSO75Kb3VNOZq/h0bSwEitp6MH8zP7y/OKfp5+IA0PfHIGLskMfbEZ3LrWoPF28iNA7cEMPi5XE4WKoc0AsHeorDAhW7rk25oI8HaNcK0M1yYwlht8hTijQY9Evjsf4CbtHBAkfR0W7V27wMIvri93zliKntp0cRKkbeCcogJLHx5ggR20jO35rt6vPe7IQRPQSgQoOcEIfavdvkFtWrqxYfYzGIbh/a9Pomf3FQX+yg6a6Bof3IsAk3Ek7B3QUY+biDucECn8vRxj0j7pAJMUGwYxnaFvAcoZJOJXyGc2uyzSC12HU8hsuwh93/xBpGbSY2xz63cgY13VRZRUZ8DwCRV9S5bAdtXSy671aEmDtT9ScnzNZl5Cy/TsPEDvUuoj1eJ4x3wji+yZnPT2wotLVpCXylb1XqfD5++9V0PSkl450aZ7aPFQzFeUdpam/SLVJTqfI0EAQ==" />
+</div>
+        
+    <table id="Table1" cellspacing="0" cellpadding="0" width="98%" border="0">
+        <tr>
+            <td nowrap="nowrap">
+                <a class="homelink" href = 'SOC.aspx'>Return to Schedule of Classes by Subject</a><br />
+                <br />
+                <a class="homelink" href="http://infosu.oregonstate.edu/login" target="_blank">Go to Registration </a>
+                <br />
+                <font color="red">DISCLAIMER: Future term data are continually updated. Check the web frequently for current information.</font><br />
+                <br />
+            </td>
+            <td nowrap="nowrap" align="right">
+                <a id="ctl00_ContentPlaceHolder1_hlPrintText" class="homelink" href="MySocList.aspx?termcode=201500&amp;campus=corvallis&amp;subjectcode=BI&amp;level=all" target="_blank">Print Version</a><a id="ctl00_ContentPlaceHolder1_hlPrint" href="MySocList.aspx?termcode=201500&amp;campus=corvallis&amp;subjectcode=BI&amp;level=all" target="_blank"><img src="Images/print.gif" alt="Print" /></a></td>
+        </tr>
+    </table>
+    <h3>
+        BI Classes, Summer 2014, Corvallis Campus</h3>
+    <font color="red"><strong>
+        </strong></font><div id="ctl00_ContentPlaceHolder1_pnlReport" style="font-size:X-Small;">
 	
-		<tr align="center" style="font-size:X-Small;font-weight:bold;white-space:nowrap;">
-			<th scope="col">Term</th>
-			<th scope="col">CRN</th>
-			<th scope="col">Instructor</th>
-			<th scope="col" style="white-space:nowrap;">Day/Time/Date</th>
-		</tr>
-		<tr align="center" valign="top" style="font-size:X-Small;white-space:nowrap;">
-			<td align="right">Su14</td><td>70454</td><td style="white-space:nowrap;">Blair, L.</td>
-			<td align="right" valign="top" style="font-size:X-Small;white-space:nowrap;">
-		MTWR 0900-0950<BR />7/21/14-8/15/14
-			</td>
-		</tr>
-		<tr align="center" valign="top" style="background-color:WhiteSmoke;font-size:X-Small;white-space:nowrap;">
-			<td align="right">Su14</td>
-			<td>72507</td>
-			<td style="white-space:nowrap;">Williams, T.</td>
-			<td align="right" valign="top" style="font-size:X-Small;white-space:nowrap;">
-MW 1000-1150<BR />7/21/14-8/15/14<br />TR 1000-1150<BR />7/21/14-8/15/14
-			</td>
-		</tr>
+            TRACI DURRELL-KHALIFE, 3029 CORD, 541-737-5335<br />
+            <br />
+        
+</div>
+    <br />
+    
+    <!-- Legend -->
+    <span class="legendtoggler">
+        <img alt="Legend" height="8" src="images/downArrow.gif" width="8" align="absmiddle">
+        <a id="ctl00_ContentPlaceHolder1_hypLegend" class="legendtogglerstyle">Legend</a>
+    </span>
+    <div class="legendDiv">
+        
+<table id="Table1" cellspacing="0" cellpadding="0" width="650" border="0">
+    <tr>
+        <td style="width: 15px" valign="top">
+            <img id="ctl00_ContentPlaceHolder1_legendIcon_imgCal" src="images/cal.gif" alt="Calendar icon, course will be offered." align="absmiddle" /></td>
+        <td style="width: 635px" valign="top">
+            <h5>
+                - Signifies that the course is offered&nbsp;in current or future terms.</h5>
+        </td>
+    </tr>
+    <tr>
+        <td style="width: 15px" valign="top">
+            <img id="ctl00_ContentPlaceHolder1_legendIcon_imgCap" src="images/cap.gif" alt="Graduation cap, course is a Baccalaureate Core Course." align="absmiddle" /></td>
+        <td style="width: 635px" valign="top">
+            <h5>
+                - Signifies the course as a Baccalaureate Core Course.</h5>
+        </td>
+    </tr>
+    <tr>
+        <td style="width: 15px" valign="top">
+            <img id="ctl00_ContentPlaceHolder1_legendIcon_imgWIC" src="images/wic.gif" alt="Graduation cap with a pen, course is a WIC Core Course." align="absmiddle" /></td>
+        <td style="width: 635px" valign="top">
+            <h5>
+                - Signifies the course as a WIC Core Course.</h5>
+        </td>
+    </tr>
+    <tr>
+        <td style="width: 15px" valign="top">
+            <img id="ctl00_ContentPlaceHolder1_legendIcon_imgDollar" src="images/dollarsign.gif" alt="Dollar sign icon, course has fees that apply." align="absmiddle" /></td>
+        <td style="width: 635px" valign="top">
+            <h5>
+                - Signifies that fees may apply to the course.</h5>
+        </td>
+    </tr>
+    <tr>
+        <td style="width: 15px" valign="top">
+        <strong>+</strong>
+        </td>
+        <td style="width: 635px" valign="top">
+            <h5>
+                - Include restriction.</h5>
+        </td>
+    </tr>
+    <tr>
+        <td valign="top" style="width: 15px">
+            <strong>-</strong>
+        </td>
+        <td valign="top" style="width: 635px">
+            <h5>
+                - Exclude restriction.</h5>
+        </td>
+    </tr>
+    <tr>
+        <td valign="top" style="width: 15px">
+        <strong>*</strong>
+        </td>
+        <td valign="top" style="width: 635px">
+            <h5>
+                - Prereq may be taken prior to or simultaneously with this course.</h5>
+        </td>
+    </tr>
+</table>
+</br>
 
+
+    </div>
+    </br>
+    </br>
+    
+    <div id="ctl00_ContentPlaceHolder1_Panel">
+	
+        
+<h5>
+    
+	Show/Hide Columns:</h5>
+<table id="ctl00_ContentPlaceHolder1_SOCColumnFilterUC1_cblColumns" style="font-size:X-Small;">
+		<tr>
+			<td><input id="ctl00_ContentPlaceHolder1_SOCColumnFilterUC1_cblColumns_0" type="checkbox" name="ctl00$ContentPlaceHolder1$SOCColumnFilterUC1$cblColumns$0" value="Term" /><label for="ctl00_ContentPlaceHolder1_SOCColumnFilterUC1_cblColumns_0">Term</label></td><td><input id="ctl00_ContentPlaceHolder1_SOCColumnFilterUC1_cblColumns_4" type="checkbox" name="ctl00$ContentPlaceHolder1$SOCColumnFilterUC1$cblColumns$4" value="Session" /><label for="ctl00_ContentPlaceHolder1_SOCColumnFilterUC1_cblColumns_4">Session</label></td><td><input id="ctl00_ContentPlaceHolder1_SOCColumnFilterUC1_cblColumns_8" type="checkbox" name="ctl00$ContentPlaceHolder1$SOCColumnFilterUC1$cblColumns$8" value="P/N" /><label for="ctl00_ContentPlaceHolder1_SOCColumnFilterUC1_cblColumns_8">P/N</label></td><td><input id="ctl00_ContentPlaceHolder1_SOCColumnFilterUC1_cblColumns_12" type="checkbox" name="ctl00$ContentPlaceHolder1$SOCColumnFilterUC1$cblColumns$12" value="Campus" /><label for="ctl00_ContentPlaceHolder1_SOCColumnFilterUC1_cblColumns_12">Campus</label></td><td><input id="ctl00_ContentPlaceHolder1_SOCColumnFilterUC1_cblColumns_16" type="checkbox" name="ctl00$ContentPlaceHolder1$SOCColumnFilterUC1$cblColumns$16" value="Curr" /><label for="ctl00_ContentPlaceHolder1_SOCColumnFilterUC1_cblColumns_16">Curr</label></td><td><input id="ctl00_ContentPlaceHolder1_SOCColumnFilterUC1_cblColumns_20" type="checkbox" name="ctl00$ContentPlaceHolder1$SOCColumnFilterUC1$cblColumns$20" value="WL Avail" /><label for="ctl00_ContentPlaceHolder1_SOCColumnFilterUC1_cblColumns_20">WL Avail</label></td><td><input id="ctl00_ContentPlaceHolder1_SOCColumnFilterUC1_cblColumns_23" type="checkbox" name="ctl00$ContentPlaceHolder1$SOCColumnFilterUC1$cblColumns$23" value="Fees" /><label for="ctl00_ContentPlaceHolder1_SOCColumnFilterUC1_cblColumns_23">Fees</label></td>
+		</tr><tr>
+			<td><input id="ctl00_ContentPlaceHolder1_SOCColumnFilterUC1_cblColumns_1" type="checkbox" name="ctl00$ContentPlaceHolder1$SOCColumnFilterUC1$cblColumns$1" checked="checked" value="StartDate" /><label for="ctl00_ContentPlaceHolder1_SOCColumnFilterUC1_cblColumns_1">StartDate</label></td><td><input id="ctl00_ContentPlaceHolder1_SOCColumnFilterUC1_cblColumns_5" type="checkbox" name="ctl00$ContentPlaceHolder1$SOCColumnFilterUC1$cblColumns$5" checked="checked" value="CRN" /><label for="ctl00_ContentPlaceHolder1_SOCColumnFilterUC1_cblColumns_5">CRN</label></td><td><input id="ctl00_ContentPlaceHolder1_SOCColumnFilterUC1_cblColumns_9" type="checkbox" name="ctl00$ContentPlaceHolder1$SOCColumnFilterUC1$cblColumns$9" checked="checked" value="Instructor" /><label for="ctl00_ContentPlaceHolder1_SOCColumnFilterUC1_cblColumns_9">Instructor</label></td><td><input id="ctl00_ContentPlaceHolder1_SOCColumnFilterUC1_cblColumns_13" type="checkbox" name="ctl00$ContentPlaceHolder1$SOCColumnFilterUC1$cblColumns$13" value="Type" /><label for="ctl00_ContentPlaceHolder1_SOCColumnFilterUC1_cblColumns_13">Type</label></td><td><input id="ctl00_ContentPlaceHolder1_SOCColumnFilterUC1_cblColumns_17" type="checkbox" name="ctl00$ContentPlaceHolder1$SOCColumnFilterUC1$cblColumns$17" value="Avail" /><label for="ctl00_ContentPlaceHolder1_SOCColumnFilterUC1_cblColumns_17">Avail</label></td><td><input id="ctl00_ContentPlaceHolder1_SOCColumnFilterUC1_cblColumns_21" type="checkbox" name="ctl00$ContentPlaceHolder1$SOCColumnFilterUC1$cblColumns$21" value="Section Title" /><label for="ctl00_ContentPlaceHolder1_SOCColumnFilterUC1_cblColumns_21">Section Title</label></td><td><input id="ctl00_ContentPlaceHolder1_SOCColumnFilterUC1_cblColumns_24" type="checkbox" name="ctl00$ContentPlaceHolder1$SOCColumnFilterUC1$cblColumns$24" value="Restrictions" /><label for="ctl00_ContentPlaceHolder1_SOCColumnFilterUC1_cblColumns_24">Restrictions</label></td>
+		</tr><tr>
+			<td><input id="ctl00_ContentPlaceHolder1_SOCColumnFilterUC1_cblColumns_2" type="checkbox" name="ctl00$ContentPlaceHolder1$SOCColumnFilterUC1$cblColumns$2" checked="checked" value="EndDate" /><label for="ctl00_ContentPlaceHolder1_SOCColumnFilterUC1_cblColumns_2">EndDate</label></td><td><input id="ctl00_ContentPlaceHolder1_SOCColumnFilterUC1_cblColumns_6" type="checkbox" name="ctl00$ContentPlaceHolder1$SOCColumnFilterUC1$cblColumns$6" value="Sec" /><label for="ctl00_ContentPlaceHolder1_SOCColumnFilterUC1_cblColumns_6">Sec</label></td><td><input id="ctl00_ContentPlaceHolder1_SOCColumnFilterUC1_cblColumns_10" type="checkbox" name="ctl00$ContentPlaceHolder1$SOCColumnFilterUC1$cblColumns$10" checked="checked" value="Day/Time/Date" /><label for="ctl00_ContentPlaceHolder1_SOCColumnFilterUC1_cblColumns_10">Day/Time/Date</label></td><td><input id="ctl00_ContentPlaceHolder1_SOCColumnFilterUC1_cblColumns_14" type="checkbox" name="ctl00$ContentPlaceHolder1$SOCColumnFilterUC1$cblColumns$14" value="Status" /><label for="ctl00_ContentPlaceHolder1_SOCColumnFilterUC1_cblColumns_14">Status</label></td><td><input id="ctl00_ContentPlaceHolder1_SOCColumnFilterUC1_cblColumns_18" type="checkbox" name="ctl00$ContentPlaceHolder1$SOCColumnFilterUC1$cblColumns$18" value="WL Cap" /><label for="ctl00_ContentPlaceHolder1_SOCColumnFilterUC1_cblColumns_18">WL Cap</label></td><td><input id="ctl00_ContentPlaceHolder1_SOCColumnFilterUC1_cblColumns_22" type="checkbox" name="ctl00$ContentPlaceHolder1$SOCColumnFilterUC1$cblColumns$22" value="Section Description" /><label for="ctl00_ContentPlaceHolder1_SOCColumnFilterUC1_cblColumns_22">Section Description</label></td><td><input id="ctl00_ContentPlaceHolder1_SOCColumnFilterUC1_cblColumns_25" type="checkbox" name="ctl00$ContentPlaceHolder1$SOCColumnFilterUC1$cblColumns$25" value="Comments" /><label for="ctl00_ContentPlaceHolder1_SOCColumnFilterUC1_cblColumns_25">Comments</label></td>
+		</tr><tr>
+			<td><input id="ctl00_ContentPlaceHolder1_SOCColumnFilterUC1_cblColumns_3" type="checkbox" name="ctl00$ContentPlaceHolder1$SOCColumnFilterUC1$cblColumns$3" value="Weeks" /><label for="ctl00_ContentPlaceHolder1_SOCColumnFilterUC1_cblColumns_3">Weeks</label></td><td><input id="ctl00_ContentPlaceHolder1_SOCColumnFilterUC1_cblColumns_7" type="checkbox" name="ctl00$ContentPlaceHolder1$SOCColumnFilterUC1$cblColumns$7" value="Cr" /><label for="ctl00_ContentPlaceHolder1_SOCColumnFilterUC1_cblColumns_7">Cr</label></td><td><input id="ctl00_ContentPlaceHolder1_SOCColumnFilterUC1_cblColumns_11" type="checkbox" name="ctl00$ContentPlaceHolder1$SOCColumnFilterUC1$cblColumns$11" value="Location" /><label for="ctl00_ContentPlaceHolder1_SOCColumnFilterUC1_cblColumns_11">Location</label></td><td><input id="ctl00_ContentPlaceHolder1_SOCColumnFilterUC1_cblColumns_15" type="checkbox" name="ctl00$ContentPlaceHolder1$SOCColumnFilterUC1$cblColumns$15" value="Cap" /><label for="ctl00_ContentPlaceHolder1_SOCColumnFilterUC1_cblColumns_15">Cap</label></td><td><input id="ctl00_ContentPlaceHolder1_SOCColumnFilterUC1_cblColumns_19" type="checkbox" name="ctl00$ContentPlaceHolder1$SOCColumnFilterUC1$cblColumns$19" value="WL Curr" /><label for="ctl00_ContentPlaceHolder1_SOCColumnFilterUC1_cblColumns_19">WL Curr</label></td><td></td><td></td>
+		</tr>
 	</table>
 
+        <br />
+        Level:
+        <select name="ctl00$ContentPlaceHolder1$ddlLevel" id="ctl00_ContentPlaceHolder1_ddlLevel" style="font-size:X-Small;">
+		<option selected="selected" value="all">All</option>
+		<option value="lower">Lower Division Undergraduate</option>
+		<option value="upper">Upper Division Undergraduate</option>
+		<option value="undergrad">All Undergraduate</option>
+		<option value="grad">Graduate</option>
+		<option value="pro">Professional</option>
+		<option value="inservice">In-Service</option>
+
+	</select>&nbsp;
+        <input type="submit" name="ctl00$ContentPlaceHolder1$Button" value="Search" id="ctl00_ContentPlaceHolder1_Button" style="font-size:X-Small;" /><br />
+        <br />
+        <font size="2"><b>Scroll to the right to see additional course information.</b></font><br />
+        <br />
+        <table id="ctl00_ContentPlaceHolder1_dlCourses" cellspacing="0" style="border-collapse:collapse;">
+		<tr>
+			<td>
+                <h5>
+                    <a href="CourseDetail.aspx?subjectcode=BI&coursenumber=101">BI 101 GENERAL BIOLOGY (4)</a>
+                    &nbsp;
+                    <img border=0 src= 'images/dollarsign.gif' alt='Has Extra Fees'>
+                    <img border="0" src="images/cap.gif" alt="Baccalaureate Core Course" />
+                    
+                    
+                </h5>
+                <div>
+				<table cellspacing="0" rules="all" border="1" id="ctl00_ContentPlaceHolder1_dlCourses_ctl00_SOCListUC1_gvOfferings" style="background-color:White;font-size:10pt;border-collapse:collapse;">
+					<tr align="center" style="font-size:X-Small;font-weight:bold;white-space:nowrap;">
+						<th scope="col">StartDate</th><th scope="col">EndDate</th><th scope="col">CRN</th><th scope="col">Instructor</th><th scope="col" style="white-space:nowrap;">Day/Time/Date</th>
+					</tr><tr align="center" valign="top" style="font-size:X-Small;white-space:nowrap;">
+						<td>06/23/14</td><td>07/18/14</td><td>70453</td><td style="white-space:nowrap;">Blair, L.</td><td align="right" valign="top" style="font-size:X-Small;white-space:nowrap;">
+                    MTWR 0900-0950<BR />6/23/14-7/18/14
+                </td>
+					</tr><tr align="center" valign="top" style="background-color:WhiteSmoke;font-size:X-Small;white-space:nowrap;">
+						<td>06/23/14</td><td>07/18/14</td><td>71288</td><td style="white-space:nowrap;">Upton, T.</td><td align="right" valign="top" style="font-size:X-Small;white-space:nowrap;">
+                    MTWR 1000-1150<BR />6/23/14-7/18/14
+                </td>
+					</tr>
+				</table>
+			</div>
 
 
+                <br />
+            </td>
+		</tr><tr>
+			<td>
+                <h5>
+                    <a href="CourseDetail.aspx?subjectcode=BI&coursenumber=102">BI 102 GENERAL BIOLOGY (4)</a>
+                    &nbsp;
+                    <img border=0 src= 'images/dollarsign.gif' alt='Has Extra Fees'>
+                    <img border="0" src="images/cap.gif" alt="Baccalaureate Core Course" />
+                    
+                    
+                </h5>
+                <div>
+				<table cellspacing="0" rules="all" border="1" id="ctl00_ContentPlaceHolder1_dlCourses_ctl01_SOCListUC1_gvOfferings" style="background-color:White;font-size:10pt;border-collapse:collapse;">
+					<tr align="center" style="font-size:X-Small;font-weight:bold;white-space:nowrap;">
+						<th scope="col">StartDate</th><th scope="col">EndDate</th><th scope="col">CRN</th><th scope="col">Instructor</th><th scope="col" style="white-space:nowrap;">Day/Time/Date</th>
+					</tr><tr align="center" valign="top" style="font-size:X-Small;white-space:nowrap;">
+						<td>07/21/14</td><td>08/15/14</td><td>70454</td><td style="white-space:nowrap;">Blair, L.</td><td align="right" valign="top" style="font-size:X-Small;white-space:nowrap;">
+                    MTWR 0900-0950<BR />7/21/14-8/15/14
+                </td>
+					</tr><tr align="center" valign="top" style="background-color:WhiteSmoke;font-size:X-Small;white-space:nowrap;">
+						<td>07/21/14</td><td>08/15/14</td><td>72507</td><td style="white-space:nowrap;">Williams, T.</td><td align="right" valign="top" style="font-size:X-Small;white-space:nowrap;">
+                    MW 1000-1150<BR />7/21/14-8/15/14<br />TR 1000-1150<BR />7/21/14-8/15/14
+                </td>
+					</tr>
+				</table>
+			</div>
+
+
+                <br />
+            </td>
+		</tr><tr>
+			<td>
+                <h5>
+                    <a href="CourseDetail.aspx?subjectcode=BI&coursenumber=103">BI 103 GENERAL BIOLOGY (4)</a>
+                    &nbsp;
+                    <img border=0 src= 'images/dollarsign.gif' alt='Has Extra Fees'>
+                    <img border="0" src="images/cap.gif" alt="Baccalaureate Core Course" />
+                    
+                    
+                </h5>
+                <div>
+				<table cellspacing="0" rules="all" border="1" id="ctl00_ContentPlaceHolder1_dlCourses_ctl02_SOCListUC1_gvOfferings" style="background-color:White;font-size:10pt;border-collapse:collapse;">
+					<tr align="center" style="font-size:X-Small;font-weight:bold;white-space:nowrap;">
+						<th scope="col">StartDate</th><th scope="col">EndDate</th><th scope="col">CRN</th><th scope="col">Instructor</th><th scope="col" style="white-space:nowrap;">Day/Time/Date</th>
+					</tr><tr align="center" valign="top" style="font-size:X-Small;white-space:nowrap;">
+						<td>07/21/14</td><td>08/15/14</td><td>70600</td><td style="white-space:nowrap;">Blair, L.</td><td align="right" valign="top" style="font-size:X-Small;white-space:nowrap;">
+                    MTWR 1300-1350<BR />7/21/14-8/15/14
+                </td>
+					</tr><tr align="center" valign="top" style="background-color:WhiteSmoke;font-size:X-Small;white-space:nowrap;">
+						<td>07/21/14</td><td>08/15/14</td><td>72508</td><td style="white-space:nowrap;">Wicks, T.</td><td align="right" valign="top" style="font-size:X-Small;white-space:nowrap;">
+                    MW 1400-1550<BR />7/21/14-8/15/14<br />TR 1400-1550<BR />7/21/14-8/15/14
+                </td>
+					</tr>
+				</table>
+			</div>
+
+
+                <br />
+            </td>
+		</tr><tr>
+			<td>
+                <h5>
+                    <a href="CourseDetail.aspx?subjectcode=BI&coursenumber=211">BI 211 PRINCIPLES OF BIOLOGY (4)</a>
+                    &nbsp;
+                    <img border=0 src= 'images/dollarsign.gif' alt='Has Extra Fees'>
+                    <img border="0" src="images/cap.gif" alt="Baccalaureate Core Course" />
+                    
+                    
+                </h5>
+                <div>
+				<table cellspacing="0" rules="all" border="1" id="ctl00_ContentPlaceHolder1_dlCourses_ctl03_SOCListUC1_gvOfferings" style="background-color:White;font-size:10pt;border-collapse:collapse;">
+					<tr align="center" style="font-size:X-Small;font-weight:bold;white-space:nowrap;">
+						<th scope="col">StartDate</th><th scope="col">EndDate</th><th scope="col">CRN</th><th scope="col">Instructor</th><th scope="col" style="white-space:nowrap;">Day/Time/Date</th>
+					</tr><tr align="center" valign="top" style="font-size:X-Small;white-space:nowrap;">
+						<td>06/23/14</td><td>07/18/14</td><td>70545</td><td style="white-space:nowrap;">Bregar, D.</td><td align="right" valign="top" style="font-size:X-Small;white-space:nowrap;">
+                    MTWR 1000-1150<BR />6/23/14-7/18/14
+                </td>
+					</tr><tr align="center" valign="top" style="background-color:WhiteSmoke;font-size:X-Small;white-space:nowrap;">
+						<td>06/23/14</td><td>07/18/14</td><td>70546</td><td style="white-space:nowrap;">Hewitt, K.</td><td align="right" valign="top" style="font-size:X-Small;white-space:nowrap;">
+                    MW 1300-1550<BR />6/23/14-7/18/14
+                </td>
+					</tr><tr align="center" valign="top" style="font-size:X-Small;white-space:nowrap;">
+						<td>06/23/14</td><td>07/18/14</td><td>70619</td><td style="white-space:nowrap;">Guermond, S.</td><td align="right" valign="top" style="font-size:X-Small;white-space:nowrap;">
+                    MW 1600-1850<BR />6/23/14-7/18/14
+                </td>
+					</tr><tr align="center" valign="top" style="background-color:WhiteSmoke;font-size:X-Small;white-space:nowrap;">
+						<td>06/23/14</td><td>07/18/14</td><td>72556</td><td style="white-space:nowrap;">Hambalek, N.</td><td align="right" valign="top" style="font-size:X-Small;white-space:nowrap;">
+                    TR 1300-1550<BR />6/23/14-7/18/14
+                </td>
+					</tr>
+				</table>
+			</div>
+
+
+                <br />
+            </td>
+		</tr><tr>
+			<td>
+                <h5>
+                    <a href="CourseDetail.aspx?subjectcode=BI&coursenumber=212">BI 212 PRINCIPLES OF BIOLOGY (4)</a>
+                    &nbsp;
+                    <img border=0 src= 'images/dollarsign.gif' alt='Has Extra Fees'>
+                    <img border="0" src="images/cap.gif" alt="Baccalaureate Core Course" />
+                    
+                    
+                </h5>
+                <div>
+				<table cellspacing="0" rules="all" border="1" id="ctl00_ContentPlaceHolder1_dlCourses_ctl04_SOCListUC1_gvOfferings" style="background-color:White;font-size:10pt;border-collapse:collapse;">
+					<tr align="center" style="font-size:X-Small;font-weight:bold;white-space:nowrap;">
+						<th scope="col">StartDate</th><th scope="col">EndDate</th><th scope="col">CRN</th><th scope="col">Instructor</th><th scope="col" style="white-space:nowrap;">Day/Time/Date</th>
+					</tr><tr align="center" valign="top" style="font-size:X-Small;white-space:nowrap;">
+						<td>07/21/14</td><td>08/15/14</td><td>70547</td><td style="white-space:nowrap;">Latham, K.</td><td align="right" valign="top" style="font-size:X-Small;white-space:nowrap;">
+                    MTWR 1000-1150<BR />7/21/14-8/15/14
+                </td>
+					</tr><tr align="center" valign="top" style="background-color:WhiteSmoke;font-size:X-Small;white-space:nowrap;">
+						<td>07/21/14</td><td>08/15/14</td><td>70548</td><td style="white-space:nowrap;">Kayes, L.</td><td align="right" valign="top" style="font-size:X-Small;white-space:nowrap;">
+                    MW 1300-1550<BR />7/21/14-8/15/14
+                </td>
+					</tr><tr align="center" valign="top" style="font-size:X-Small;white-space:nowrap;">
+						<td>07/21/14</td><td>08/15/14</td><td>70620</td><td style="white-space:nowrap;">Kayes, L.</td><td align="right" valign="top" style="font-size:X-Small;white-space:nowrap;">
+                    MW 1600-1850<BR />7/21/14-8/15/14
+                </td>
+					</tr><tr align="center" valign="top" style="background-color:WhiteSmoke;font-size:X-Small;white-space:nowrap;">
+						<td>07/21/14</td><td>08/15/14</td><td>72557</td><td style="white-space:nowrap;">Kayes, L.</td><td align="right" valign="top" style="font-size:X-Small;white-space:nowrap;">
+                    TR 1300-1550<BR />7/21/14-8/15/14
+                </td>
+					</tr>
+				</table>
+			</div>
+
+
+                <br />
+            </td>
+		</tr><tr>
+			<td>
+                <h5>
+                    <a href="CourseDetail.aspx?subjectcode=BI&coursenumber=213">BI 213 PRINCIPLES OF BIOLOGY (4)</a>
+                    &nbsp;
+                    <img border=0 src= 'images/dollarsign.gif' alt='Has Extra Fees'>
+                    <img border="0" src="images/cap.gif" alt="Baccalaureate Core Course" />
+                    
+                    
+                </h5>
+                <div>
+				<table cellspacing="0" rules="all" border="1" id="ctl00_ContentPlaceHolder1_dlCourses_ctl05_SOCListUC1_gvOfferings" style="background-color:White;font-size:10pt;border-collapse:collapse;">
+					<tr align="center" style="font-size:X-Small;font-weight:bold;white-space:nowrap;">
+						<th scope="col">StartDate</th><th scope="col">EndDate</th><th scope="col">CRN</th><th scope="col">Instructor</th><th scope="col" style="white-space:nowrap;">Day/Time/Date</th>
+					</tr><tr align="center" valign="top" style="font-size:X-Small;white-space:nowrap;">
+						<td>08/18/14</td><td>09/05/14</td><td>70549</td><td style="white-space:nowrap;">Coffeen, W.</td><td align="right" valign="top" style="font-size:X-Small;white-space:nowrap;">
+                    MTWRF 1000-1150<BR />8/18/14-9/5/14
+                </td>
+					</tr><tr align="center" valign="top" style="background-color:WhiteSmoke;font-size:X-Small;white-space:nowrap;">
+						<td>08/18/14</td><td>09/05/14</td><td>70550</td><td style="white-space:nowrap;">Kayes, L.</td><td align="right" valign="top" style="font-size:X-Small;white-space:nowrap;">
+                    TWR 1300-1550<BR />8/18/14-9/5/14
+                </td>
+					</tr><tr align="center" valign="top" style="font-size:X-Small;white-space:nowrap;">
+						<td>08/18/14</td><td>09/05/14</td><td>70622</td><td style="white-space:nowrap;">Kayes, L.</td><td align="right" valign="top" style="font-size:X-Small;white-space:nowrap;">
+                    TWR 1600-1850<BR />8/18/14-9/5/14
+                </td>
+					</tr>
+				</table>
+			</div>
+
+
+                <br />
+            </td>
+		</tr><tr>
+			<td>
+                <h5>
+                    <a href="CourseDetail.aspx?subjectcode=BI&coursenumber=311">BI 311 GENETICS (4)</a>
+                    &nbsp;
+                    
+                    
+                    
+                    
+                </h5>
+                <div>
+				<table cellspacing="0" rules="all" border="1" id="ctl00_ContentPlaceHolder1_dlCourses_ctl06_SOCListUC1_gvOfferings" style="background-color:White;font-size:10pt;border-collapse:collapse;">
+					<tr align="center" style="font-size:X-Small;font-weight:bold;white-space:nowrap;">
+						<th scope="col">StartDate</th><th scope="col">EndDate</th><th scope="col">CRN</th><th scope="col">Instructor</th><th scope="col" style="white-space:nowrap;">Day/Time/Date</th>
+					</tr><tr align="center" valign="top" style="font-size:X-Small;white-space:nowrap;">
+						<td>07/21/14</td><td>08/15/14</td><td>70806</td><td style="white-space:nowrap;">Coffeen, W.</td><td align="right" valign="top" style="font-size:X-Small;white-space:nowrap;">
+                    MTWR 0900-1050<BR />7/21/14-8/15/14
+                </td>
+					</tr><tr align="center" valign="top" style="background-color:WhiteSmoke;font-size:X-Small;white-space:nowrap;">
+						<td>07/21/14</td><td>08/15/14</td><td>70807</td><td style="white-space:nowrap;">Coffeen, W.</td><td align="right" valign="top" style="font-size:X-Small;white-space:nowrap;">
+                    MW 1100-1150<BR />7/21/14-8/15/14
+                </td>
+					</tr>
+				</table>
+			</div>
+
+
+                <br />
+            </td>
+		</tr><tr>
+			<td>
+                <h5>
+                    <a href="CourseDetail.aspx?subjectcode=BI&coursenumber=314">BI 314 CELL AND MOLECULAR BIOLOGY (4)</a>
+                    &nbsp;
+                    
+                    
+                    
+                    
+                </h5>
+                <div>
+				<table cellspacing="0" rules="all" border="1" id="ctl00_ContentPlaceHolder1_dlCourses_ctl07_SOCListUC1_gvOfferings" style="background-color:White;font-size:10pt;border-collapse:collapse;">
+					<tr align="center" style="font-size:X-Small;font-weight:bold;white-space:nowrap;">
+						<th scope="col">StartDate</th><th scope="col">EndDate</th><th scope="col">CRN</th><th scope="col">Instructor</th><th scope="col" style="white-space:nowrap;">Day/Time/Date</th>
+					</tr><tr align="center" valign="top" style="font-size:X-Small;white-space:nowrap;">
+						<td>07/21/14</td><td>08/15/14</td><td>70808</td><td style="white-space:nowrap;">Rajagopal, I.</td><td align="right" valign="top" style="font-size:X-Small;white-space:nowrap;">
+                    MTWR 0900-1050<BR />7/21/14-8/15/14
+                </td>
+					</tr><tr align="center" valign="top" style="background-color:WhiteSmoke;font-size:X-Small;white-space:nowrap;">
+						<td>07/21/14</td><td>08/15/14</td><td>71032</td><td style="white-space:nowrap;">Rajagopal, I.</td><td align="right" valign="top" style="font-size:X-Small;white-space:nowrap;">
+                    MW 1100-1150<BR />7/21/14-8/15/14
+                </td>
+					</tr>
+				</table>
+			</div>
+
+
+                <br />
+            </td>
+		</tr><tr>
+			<td>
+                <h5>
+                    <a href="CourseDetail.aspx?subjectcode=BI&coursenumber=350">BI 350 ANIMAL BEHAVIOR (3)</a>
+                    &nbsp;
+                    
+                    
+                    
+                    
+                </h5>
+                <div>
+				<table cellspacing="0" rules="all" border="1" id="ctl00_ContentPlaceHolder1_dlCourses_ctl08_SOCListUC1_gvOfferings" style="background-color:White;font-size:10pt;border-collapse:collapse;">
+					<tr align="center" style="font-size:X-Small;font-weight:bold;white-space:nowrap;">
+						<th scope="col">StartDate</th><th scope="col">EndDate</th><th scope="col">CRN</th><th scope="col">Instructor</th><th scope="col" style="white-space:nowrap;">Day/Time/Date</th>
+					</tr><tr align="center" valign="top" style="font-size:X-Small;white-space:nowrap;">
+						<td>08/18/14</td><td>09/05/14</td><td>72812</td><td style="white-space:nowrap;">Taylor, B.</td><td align="right" valign="top" style="font-size:X-Small;white-space:nowrap;">
+                    MTWRF 1300-1450<BR />8/18/14-9/5/14
+                </td>
+					</tr>
+				</table>
+			</div>
+
+
+                <br />
+            </td>
+		</tr><tr>
+			<td>
+                <h5>
+                    <a href="CourseDetail.aspx?subjectcode=BI&coursenumber=401">BI 401 RESEARCH AND SCHOLARSHIP (1-16)</a>
+                    &nbsp;
+                    
+                    
+                    
+                    
+                </h5>
+                <div>
+				<table cellspacing="0" rules="all" border="1" id="ctl00_ContentPlaceHolder1_dlCourses_ctl09_SOCListUC1_gvOfferings" style="background-color:White;font-size:10pt;border-collapse:collapse;">
+					<tr align="center" style="font-size:X-Small;font-weight:bold;white-space:nowrap;">
+						<th scope="col">StartDate</th><th scope="col">EndDate</th><th scope="col">CRN</th><th scope="col">Instructor</th><th scope="col" style="white-space:nowrap;">Day/Time/Date</th>
+					</tr><tr align="center" valign="top" style="font-size:X-Small;white-space:nowrap;">
+						<td>06/23/14</td><td>09/05/14</td><td>70469</td><td style="white-space:nowrap;">Mason, R.</td><td align="right" valign="top" style="font-size:X-Small;white-space:nowrap;">
+                    TBA
+                </td>
+					</tr>
+				</table>
+			</div>
+
+
+                <br />
+            </td>
+		</tr><tr>
+			<td>
+                <h5>
+                    <a href="CourseDetail.aspx?subjectcode=BI&coursenumber=403">BI 403 THESIS (1-16)</a>
+                    &nbsp;
+                    
+                    
+                    
+                    
+                </h5>
+                <div>
+				<table cellspacing="0" rules="all" border="1" id="ctl00_ContentPlaceHolder1_dlCourses_ctl10_SOCListUC1_gvOfferings" style="background-color:White;font-size:10pt;border-collapse:collapse;">
+					<tr align="center" style="font-size:X-Small;font-weight:bold;white-space:nowrap;">
+						<th scope="col">StartDate</th><th scope="col">EndDate</th><th scope="col">CRN</th><th scope="col">Instructor</th><th scope="col" style="white-space:nowrap;">Day/Time/Date</th>
+					</tr><tr align="center" valign="top" style="font-size:X-Small;white-space:nowrap;">
+						<td>06/23/14</td><td>09/05/14</td><td>70809</td><td style="white-space:nowrap;">Mason, R.</td><td align="right" valign="top" style="font-size:X-Small;white-space:nowrap;">
+                    TBA
+                </td>
+					</tr>
+				</table>
+			</div>
+
+
+                <br />
+            </td>
+		</tr><tr>
+			<td>
+                <h5>
+                    <a href="CourseDetail.aspx?subjectcode=BI&coursenumber=410">BI 410 INTERNSHIP (1-16)</a>
+                    &nbsp;
+                    
+                    
+                    
+                    
+                </h5>
+                <div>
+				<table cellspacing="0" rules="all" border="1" id="ctl00_ContentPlaceHolder1_dlCourses_ctl11_SOCListUC1_gvOfferings" style="background-color:White;font-size:10pt;border-collapse:collapse;">
+					<tr align="center" style="font-size:X-Small;font-weight:bold;white-space:nowrap;">
+						<th scope="col">StartDate</th><th scope="col">EndDate</th><th scope="col">CRN</th><th scope="col">Instructor</th><th scope="col" style="white-space:nowrap;">Day/Time/Date</th>
+					</tr><tr align="center" valign="top" style="font-size:X-Small;white-space:nowrap;">
+						<td>06/23/14</td><td>09/05/14</td><td>70468</td><td style="white-space:nowrap;">Mason, R.</td><td align="right" valign="top" style="font-size:X-Small;white-space:nowrap;">
+                    TBA
+                </td>
+					</tr>
+				</table>
+			</div>
+
+
+                <br />
+            </td>
+		</tr><tr>
+			<td>
+                <h5>
+                    <a href="CourseDetail.aspx?subjectcode=BI&coursenumber=503">BI 503 THESIS/DISSERTATION (1-16)</a>
+                    &nbsp;
+                    
+                    
+                    
+                    
+                </h5>
+                <div>
+				<table cellspacing="0" rules="all" border="1" id="ctl00_ContentPlaceHolder1_dlCourses_ctl12_SOCListUC1_gvOfferings" style="background-color:White;font-size:10pt;border-collapse:collapse;">
+					<tr align="center" style="font-size:X-Small;font-weight:bold;white-space:nowrap;">
+						<th scope="col">StartDate</th><th scope="col">EndDate</th><th scope="col">CRN</th><th scope="col">Instructor</th><th scope="col" style="white-space:nowrap;">Day/Time/Date</th>
+					</tr><tr align="center" valign="top" style="font-size:X-Small;white-space:nowrap;">
+						<td>06/23/14</td><td>09/05/14</td><td>74155</td><td style="white-space:nowrap;">Mason, R.</td><td align="right" valign="top" style="font-size:X-Small;white-space:nowrap;">
+                    TBA
+                </td>
+					</tr>
+				</table>
+			</div>
+
+
+                <br />
+            </td>
+		</tr><tr>
+			<td>
+                <h5>
+                    <a href="CourseDetail.aspx?subjectcode=BI&coursenumber=603">BI 603 THESIS/DISSERTATION (1-16)</a>
+                    &nbsp;
+                    
+                    
+                    
+                    
+                </h5>
+                <div>
+				<table cellspacing="0" rules="all" border="1" id="ctl00_ContentPlaceHolder1_dlCourses_ctl13_SOCListUC1_gvOfferings" style="background-color:White;font-size:10pt;border-collapse:collapse;">
+					<tr align="center" style="font-size:X-Small;font-weight:bold;white-space:nowrap;">
+						<th scope="col">StartDate</th><th scope="col">EndDate</th><th scope="col">CRN</th><th scope="col">Instructor</th><th scope="col" style="white-space:nowrap;">Day/Time/Date</th>
+					</tr><tr align="center" valign="top" style="font-size:X-Small;white-space:nowrap;">
+						<td>06/23/14</td><td>09/05/14</td><td>72558</td><td style="white-space:nowrap;">Mason, R.</td><td align="right" valign="top" style="font-size:X-Small;white-space:nowrap;">
+                    TBA
+                </td>
+					</tr>
+				</table>
+			</div>
+
+
+                <br />
+            </td>
+		</tr>
+	</table>
+</div>
+    <br />
+    <br />
+    <br />
+    
+    
+
+    
+
+<script type="text/javascript">
+//<![CDATA[
+
+theForm.oldSubmit = theForm.submit;
+theForm.submit = WebForm_SaveScrollPositionSubmit;
+
+theForm.oldOnSubmit = theForm.onsubmit;
+theForm.onsubmit = WebForm_SaveScrollPositionOnSubmit;
+//]]>
+</script>
+</form>
+        <br />
+        <table id="ctl00_tblFooter" cellspacing="0" cellpadding="0" width="98%">
+	<tr>
+		<td style="white-space: nowrap">
+                    &nbsp;</td>
+	</tr>
+	<tr>
+		<td style="white-space: nowrap" align="right">
+                     
+                    <div style="width: 500px; border: Solid 1px Black; text-align:left; font-size: x-small">
+                            <a name="#JumpList"></a><a href="#top">
+                                <img id="ctl00_dlJumpWords_ctl00_imgTop" src="Images/top.gif" alt="Top" align="middle" style="border-width:0px;" /></a>
+                            You may return to this page by using any of the following Quick-Jump keywords:<br />
+                        <strong>BI201500</strong>&nbsp;|&nbsp;<strong>BISummer2014</strong></div>
+                    
+                    
+                    <img id="ctl00_imapCatLinks2" title="Catalog Links" src="images/catbar.gif" usemap="#ImageMapctl00_imapCatLinks2" style="border-width:0px;" /><map name="ImageMapctl00_imapCatLinks2" id="ImageMapctl00_imapCatLinks2">
+			<area shape="rect" coords="0,0,71,18" href="Default.aspx" title="Catalog Home" alt="Catalog Home" /><area shape="rect" coords="71,0,144,18" href="SiteMap.aspx" title="Catlog Index" alt="Catlog Index" /><area shape="rect" coords="144,0,221,18" href="GeneralSearcher.aspx" title="Catalog Search" alt="Catalog Search" /><area shape="rect" coords="221,0,302,18" href="Archive.aspx" title="Catalog Archive" alt="Catalog Archive" /><area shape="rect" coords="302,0,372,18" href="Help.aspx" title="Catalog Help" alt="Catalog Help" />
+		</map>
+                    
+                </td>
+	</tr>
+	<tr>
+		<td style="white-space: nowrap; background-color: #000000; height: 19px">
+                    <img id="ctl00_imapOSULinks2" title="OSU Links" src="images/osulinkbar.gif" usemap="#ImageMapctl00_imapOSULinks2" style="border-width:0px;" /><map name="ImageMapctl00_imapOSULinks2" id="ImageMapctl00_imapOSULinks2">
+			<area shape="rect" coords="6,0,77,19" href="http://www.oregonstate.edu/" title="OSU Home" alt="OSU Home" /><area shape="rect" coords="77,0,205,19" href="http://www.oregonstate.edu/admissions/" title="Prospective Students" alt="Prospective Students" /><area shape="rect" coords="205,0,310,19" href="http://www.oregonstate.edu/students/" title="Current Students" alt="Current Students" /><area shape="rect" coords="310,0,402,19" href="http://oregonstate.edu/main/faculty-staff/" title="Faculty &amp; Staff" alt="Faculty &amp; Staff" /><area shape="rect" coords="402,0,507,19" href="http://www.oregonstate.edu/alumnifriends/" title="Alumni &amp; Friends" alt="Alumni &amp; Friends" /><area shape="rect" coords="507,0,561,19" href="http://www.oregonstate.edu/visitors/" title="Visitors" alt="Visitors" />
+		</map>
+                </td>
+	</tr>
+	<tr style="background-color: #ffffff">
+		<td style="white-space: nowrap" align="right" height="18">
+                    <img id="ctl00_imapSmallLinkBar2" title="OSU Links" src="images/osusmalllinkbar.gif" usemap="#ImageMapctl00_imapSmallLinkBar2" style="border-width:0px;" /><map name="ImageMapctl00_imapSmallLinkBar2" id="ImageMapctl00_imapSmallLinkBar2">
+			<area shape="rect" coords="0,0,82,18" href="http://www.oregonstate.edu/findsomeone" title="Find Someone" alt="Find Someone" /><area shape="rect" coords="82,0,118,18" href="http://www.oregonstate.edu/visitors/tour/campusmap.htm" title="Campus Maps" alt="Campus Maps" /><area shape="rect" coords="118,0,177,18" href="http://oregonstate.edu/siteindex.html" title="OSU Site Map" alt="OSU Site Map" />
+		</map>
+                </td>
+	</tr>
+	<tr>
+		<td class="headerlink" align="center">
+                    Copyright
+                    <img id="ctl00_imgCopyright" src="images/copywrite.gif" alt="Copyright" />2004 Oregon State University<br />
+                    <a href="http://oregonstate.edu/main/about/disclaimer">Disclaimer</a><br />
+                    For questions about this page, contact the <a href="mailto:&#114;&#101;&#103;&#105;&#115;&#116;&#114;&#97;&#114;&#115;&#64;&#111;&#114;&#101;&#103;&#111;&#110;&#115;&#116;&#97;&#116;&#101;&#46;&#101;&#100;&#117;">Registrar's Office</a><br />
+                    For&nbsp;comments, questions, and feedback about the website contact the <a href="mailto:&#99;&#108;&#101;&#109;&#101;&#110;&#116;&#115;&#109;&#64;&#98;&#117;&#115;&#46;&#111;&#114;&#101;&#103;&#111;&#110;&#115;&#116;&#97;&#116;&#101;&#46;&#101;&#100;&#117;">Business Solutions Group</a>
+                    <br />
+                    <span id="ctl00_lblRevisedDate"></span>
+                    <br />
+                    <table id="Table3" cellspacing="1" cellpadding="1" width="380" border="0" align="center">
+                        <tr>
+                            <td>
+                                <img id="ctl00_Image2" src="images/bsglogo.gif" alt="B S G" />
+                            </td>
+                            <td style="white-space: nowrap">
+                                Developed&nbsp;by the Business Solutions Group at&nbsp;OSU&nbsp;College of Business</td>
+                        </tr>
+                    </table>
+                </td>
+	</tr>
+</table>
+
+<!-- Enable this code to turn on analytics.    -->
+<div id="ctl00_GooglePanel">
+	
+    <script type="text/javascript">
+        var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+        document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); 
+    </script> 
+    <script type="text/javascript">
+        try {
+            var pageTracker = _gat._getTracker("UA-4834799-23");
+            pageTracker._trackPageview();
+        }
+        catch (err) { }
+    </script>
+
+</div>
 </body>
 </html>

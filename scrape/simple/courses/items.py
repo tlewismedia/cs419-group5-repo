@@ -8,10 +8,7 @@
 import scrapy
 
 class CourseItem(scrapy.Item):
-    crn = scrapy.Field()
-    prof = scrapy.Field()
-    days = scrapy.Field()
-    times = scrapy.Field()
-    start = scrapy.Field()
-    end = scrapy.Field()
+    id = scrapy.Field()
+    name = scrapy.Field()
+    color = scrapy.Field()
     
