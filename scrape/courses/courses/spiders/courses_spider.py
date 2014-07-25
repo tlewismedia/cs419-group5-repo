@@ -105,11 +105,16 @@ class CoursesSpider(scrapy.Spider):
                 item = CourseItem()
 
                 item['days'] = days[0]
-                item['start'] = row.xpath('./td/font/text()')[0].extract()
-                item['end'] = row.xpath('./td/font/text()')[1].extract()
+                item['startDate'] = row.xpath('./td/font/text()')[0].extract()
+                item['endDate'] = row.xpath('./td/font/text()')[1].extract()
                 item['crn'] = row.xpath('./td/font/text()')[2].extract()            
                 item['prof'] = prof
-                item['times'] = re.findall( '[\d-]+' , row.xpath('./td/font/text()')[4].extract())[0]
+                times = re.findall( '[\d-]+' , row.xpath('./td/font/text()')[4].extract())[0]
+                startTime = times[0:4]
+                endTime = times[5:9]
+                item['startTime'] = startTime
+                item['endTime'] = endTime
+
                 yield item
 
 

@@ -11,7 +11,8 @@ class CourseItem(scrapy.Item):
     crn = scrapy.Field()
     prof = scrapy.Field()
     days = scrapy.Field()
-    times = scrapy.Field()
-    start = scrapy.Field()
-    end = scrapy.Field()
+    startTime = scrapy.Field()
+    endTime = scrapy.Field()
+    startDate = scrapy.Field()
+    endDate = scrapy.Field()
     
