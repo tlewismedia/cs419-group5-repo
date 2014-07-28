@@ -12,6 +12,8 @@ define('HEADER', 'assets/header.php');
 define('BODY', 'assets/body.php');
 define('FOOTER', 'assets/footer.php');
 
+
+echo "hello";
 if (!empty($_POST["lastname"])) {
     $ln =  $_POST["lastname"];
     $sel = "SELECT p.firstName, c.days, c.startDate, c.endDate, c.startTime, c.endTime   FROM Courses c
@@ -29,6 +31,8 @@ WHERE p.lastName = ".$ln.";";
     }
 
 
+    
+
 
     $db = new PDO('sqlite:'.DATABASE);
 
@@ -41,99 +45,99 @@ WHERE p.lastName = ".$ln.";";
     if ($query)
         echo 'success';
 
-//    if (!$query)
-//        die("Impossible to execute query.") #As reported above, this means that the db owner is different from the web server's one, but we did not commit any syntax mistake.
+   if (!$query)
+       die("Impossible to execute query.") #As reported above, this means that the db owner is different from the web server's one, but we did not commit any syntax mistake.
 
 
     $results = sqlite_fetch_all( $query);
-//    echo $reults;
+   echo $reults;
 
-//    print $query->numRows();
-//    while ($row = $query->fetch())
-//        echo($row['name']."\n");
-
-
+   print $query->numRows();
+   while ($row = $query->fetch())
+       echo($row['name']."\n");
 
 
-}
-_init();
-main();
-page();
 
-function main()
-{
-    global $G;
-    message("PHP testing sandbox (%s) version %s", $G['ME'], VERSION);
-//    try {
-//        $db = new PDO('sqlite:' . DATABASE);
-//        $db->exec('CREATE TABLE IF NOT EXISTS t (a, b, c)');
-//        message('Table t sucessfully created');
-//    } catch(PDOException $e) {
-//        message($e->getMessage());
-//    }
 
 }
+// _init();
+// main();
+// page();
 
-function _init( )
-{
-    global $G;
-    $G['TITLE'] = TITLE;
-    $G['ME'] = basename($_SERVER['SCRIPT_FILENAME']);
+// function main()
+// {
+//     global $G;
+//     message("PHP testing sandbox (%s) version %s", $G['ME'], VERSION);
+// //    try {
+// //        $db = new PDO('sqlite:' . DATABASE);
+// //        $db->exec('CREATE TABLE IF NOT EXISTS t (a, b, c)');
+// //        message('Table t sucessfully created');
+// //    } catch(PDOException $e) {
+// //        message($e->getMessage());
+// //    }
 
-    // initialize display vars
-    foreach ( array( 'MESSAGES', 'ERRORS', 'CONTENT' ) as $v )
-        $G[$v] = "";
-}
+// }
 
-function page( )
-{
-    global $G;
-    set_vars();
+// function _init( )
+// {
+//     global $G;
+//     $G['TITLE'] = TITLE;
+//     $G['ME'] = basename($_SERVER['SCRIPT_FILENAME']);
 
-    require_once(HEADER);
-    require_once(BODY);
-    require_once(FOOTER);
-    exit();
-}
+//     // initialize display vars
+//     foreach ( array( 'MESSAGES', 'ERRORS', 'CONTENT' ) as $v )
+//         $G[$v] = "";
+// }
 
-//
+// function page( )
+// {
+//     global $G;
+//     set_vars();
 
-function set_vars( )
-{
-    global $G;
-    if(isset($G["_MSG_ARRAY"])) foreach ( $G["_MSG_ARRAY"] as $m ) $G["MESSAGES"] .= $m;
-    if(isset($G["_ERR_ARRAY"])) foreach ( $G["_ERR_ARRAY"] as $m ) $G["ERRORS"] .= $m;
-    if(isset($G["_CON_ARRAY"])) foreach ( $G["_CON_ARRAY"] as $m ) $G["CONTENT"] .= $m;
-}
+//     require_once(HEADER);
+//     require_once(BODY);
+//     require_once(FOOTER);
+//     exit();
+// }
 
-function content( $s )
-{
-    global $G;
-    $G["_CON_ARRAY"][] = "\n<div class=\"content\">$s</div>\n";
-}
+// //
 
-function message()
-{
-    global $G;
-    $args = func_get_args();
-    if(count($args) < 1) return;
-    $s = vsprintf(array_shift($args), $args);
-    $G["_MSG_ARRAY"][] = "<p class=\"message\">$s</p>\n";
-}
+// function set_vars( )
+// {
+//     global $G;
+//     if(isset($G["_MSG_ARRAY"])) foreach ( $G["_MSG_ARRAY"] as $m ) $G["MESSAGES"] .= $m;
+//     if(isset($G["_ERR_ARRAY"])) foreach ( $G["_ERR_ARRAY"] as $m ) $G["ERRORS"] .= $m;
+//     if(isset($G["_CON_ARRAY"])) foreach ( $G["_CON_ARRAY"] as $m ) $G["CONTENT"] .= $m;
+// }
 
-function error_message()
-{
-    global $G;
-    $args = func_get_args();
-    if(count($args) < 1) return;
-    $s = vsprintf(array_shift($args), $args);
-    $G["_ERR_ARRAY"][] = "<p class=\"error_message\">$s</p>\n";
-}
+// function content( $s )
+// {
+//     global $G;
+//     $G["_CON_ARRAY"][] = "\n<div class=\"content\">$s</div>\n";
+// }
 
-function error( $s )
-{
-    error_message($s);
-    page();
-}
+// function message()
+// {
+//     global $G;
+//     $args = func_get_args();
+//     if(count($args) < 1) return;
+//     $s = vsprintf(array_shift($args), $args);
+//     $G["_MSG_ARRAY"][] = "<p class=\"message\">$s</p>\n";
+// }
+
+// function error_message()
+// {
+//     global $G;
+//     $args = func_get_args();
+//     if(count($args) < 1) return;
+//     $s = vsprintf(array_shift($args), $args);
+//     $G["_ERR_ARRAY"][] = "<p class=\"error_message\">$s</p>\n";
+// }
+
+// function error( $s )
+// {
+//     error_message($s);
+//     page();
+// }
 
 ?>
