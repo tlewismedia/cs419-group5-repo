@@ -29,7 +29,7 @@ create3 = '''CREATE TABLE CoursesProfs (
     cid int NOT NULL,
     pid int NOT NULL,
     PRIMARY KEY (cid, pid),
-    FOREIGN KEY (cid) REFERENCES Courses (crn),
+    FOREIGN KEY (cid) REFERENCES Courses (prof),
     FOREIGN KEY (pid) REFERENCES Profs (email)
 );'''
 
