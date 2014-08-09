@@ -1,0 +1,32 @@
+psuedocode for makeEventList()
+
+returns: a list of spans
+parameters: a list of users, [ window start, window end ]
+precond: list of users > 0, window start is in future, window end is reasonable
+
+//for each user, get their events from calendar and courselist and add to list
+
+//get calendar events
+span list eventList
+for each user u in users
+	connect to their calender
+	calEvents = retrieve their events in window
+	events = convert calEvents to spans
+	for each event e in events
+		eventList.add(e)
+
+	//get course list
+
+
+	if user is in course db
+		courses = retrieve their events in window  //SQL query
+		convert courses to events
+		for each event e in events
+			eventList.add(e)
+			
+			
+	
+
+NOTE: we may want to sort this list for better performance
+
+return eventList

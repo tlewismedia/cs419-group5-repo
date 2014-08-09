@@ -1,0 +1,14 @@
+NOTE: this is a different function from isConflict
+
+
+psuedocode for checkForConflicts()
+
+returns: true if no conflicts
+parameters: span interval, span list events
+precond: list of users > 0, span length > 0
+
+// checks each event for a conflict with interval
+for each event e in events
+	if isconflict(e, interval)
+		return false
+return true

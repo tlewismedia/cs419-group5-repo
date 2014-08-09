@@ -1,0 +1,31 @@
+psuedocode for findFreeTimes()
+
+returns: a list of spans
+parameters: a list of users, [ window start, window end ]
+precond: list of users > 0, window start is in future, window end is reasonable
+
+span interval - will be expand until there's a conflict
+span list events
+span list freeTimes
+
+
+if winStart not provided then winstart = getCurrentDateTime()   //likely a library function
+if winEnd not provided then winEnd = winStart + WINDOWDEFAULT   // month?
+
+interval.start = winStart
+interval.end = interval.start + SPANUNIT   //SPANUNIT will liekly be 1 min
+events = makeEventsLst( users )
+
+while interval.start < winEnd {
+	while (not checkForConflicts(interval, events)
+		interval.incrementEnd();
+
+	//once there is a conflict, add interval to freeTime
+	freeTimes.add( interval )
+
+	interval.start = interval end
+	interval.end = interval start + SPANUNIT
+
+}
+
+return freeTimes
