@@ -20,9 +20,6 @@ if (!empty($_POST["lastname"])) {
   $ln = $_POST["lastname"];
   echo "last name: ".$ln."\n";
 
-
-  // $ln = 'Golliher';
-
   $sel = "SELECT p.firstName, c.days, c.startDate, c.endDate, c.startTime, c.endTime   FROM Courses c
           INNER JOIN CoursesProfs cp ON cp.cid = c.prof
           INNER JOIN Profs p ON p.email = cp.pid
