@@ -1,0 +1,12 @@
+isConflict
+parameters: start1, end1, start2, end2
+returns: true if the two time frames conflict
+
+//do the events contain an overlapping time?
+//compare start and end times of the two time frames 
+
+if (end1< start2 || end2 < start1)
+//where one event ends before the other starts, there is no conflict
+  return false
+  
+else return true
