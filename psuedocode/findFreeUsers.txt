@@ -1,0 +1,17 @@
+findFreeUsers
+parameters: users (email)[], reqStart, reqEnd
+returns: list of users free during requested time frame
+
+check each users’ calendar for any event during start and end time
+if user does not have a conflict, the user is free
+return users without conflict
+
+for each user
+  free = true
+  get user event list
+  for each event in their list
+    if isConflict (eventStart, eventEnd, reqStart, reqEnd)
+    free = false
+else  append user to list availableUsers
+
+return availableUsers
