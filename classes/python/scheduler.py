@@ -34,6 +34,12 @@ class Scheduler:
         # parameters: span interval, span list events
         # precond: list of users > 0, span length > 0
 
+        foreach event in events:
+            if isConflict(event, interval):
+                return false
+                
+        return true
+
 
     def makeEventList( users, winStart, winEnd ):
         ######################################################################
