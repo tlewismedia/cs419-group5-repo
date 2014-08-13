@@ -1,0 +1,44 @@
+isConflict :
+
+parameters: API Credentials, users (email), StartDatetime , EndDatetime
+
+Start
+Check Calendar API for user created events with requested dates.
+If event start and date conflict with above data than return as a conflicted event.
+End
+
+
+PrintUsers.
+
+parameters: API Credentials, users (email)
+
+Start
+Check Calendar API for for user list attached to api calendar events created by above user.
+for each user
+print useremail
+End
+
+
+
+spanIncrEnd
+
+This is to make increment in event time span.
+
+Parameters: API Credentials, users (email)
+
+Start
+Get list of al event created.
+Get All event ID and then make event date time updating by adding time and sending back to API to update Google calendar
+End
+
+
+spanDecEnd
+
+This is to make decrement  in event time span.
+
+Parameters: API Credentials, users (email)
+
+Start
+Get list of al event created.
+Get All event ID and then make event date time updating by updating time and sending back to API to update Google calendar
+End

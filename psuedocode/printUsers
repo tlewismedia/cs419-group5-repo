@@ -1,0 +1,6 @@
+printUsers
+parameters: list of users (email)[],
+returns: void?
+
+for each user
+  print userEmail
