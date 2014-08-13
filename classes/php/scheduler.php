@@ -4,9 +4,16 @@
 */
 
 
-require_once "classes/span.php";
+require_once "classes/Span.php";
+require_once "classes/MyDB.php";
 
 // * Note: names of private properties or methods should be preceeded by an underscore.
+
+
+define('DEBUG', true);
+
+
+
 
 class Scheduler {
 
@@ -25,7 +32,7 @@ class Scheduler {
 	{
 		/**
 		* returns: a list of spans
-		* parameters: a list of users, [ window start, window end ]
+		* parameters:  window start, window end 
 		* precond: list of users > 0, window start is in future, window end is reasonable
 		*/
 
@@ -59,7 +66,7 @@ class Scheduler {
 
 	}
 
-	function makeEventList( $users, $winStart, $winEnd )
+	function findFreeTimes( winStart, winEnd, users )
 	{
 		/**
 		* returns: a list of spans
