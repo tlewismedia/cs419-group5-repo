@@ -12,6 +12,7 @@ directory or process listing.
 To end, hit Control-C.
 """
 # http://hg.python.org/cpython/file/50722d2f08c7/Demo/curses/repeat.py
+# Author: Guido van Rossum
 
 import os
 import sys
