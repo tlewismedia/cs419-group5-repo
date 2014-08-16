@@ -12,13 +12,6 @@ directory or process listing.
 To end, hit Control-C.
 """
 # http://hg.python.org/cpython/file/50722d2f08c7/Demo/curses/repeat.py
-# Author: Guido van Rossum
-
-# Disclaimer: there's a Linux program named 'watch' that does the same
-# thing.  Honestly, I didn't know of its existence when I wrote this!
-
-# To do: add features until it has the same functionality as watch(1);
-# then compare code size and development time.
 
 import os
 import sys

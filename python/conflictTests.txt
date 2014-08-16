@@ -1,0 +1,4 @@
+python isConflict.py "30 Nov 14 16:30" "30 Nov 14 17:30" "30 Nov 14 16:00" "30 Nov 14 17:00"
+python isConflict.py "30 Nov 14 16:30" "30 Nov 14 17:30" "30 Nov 14 18:00" "30 Nov 14 19:00"
+python isConflict.py "30 Nov 14 16:00" "30 Nov 14 17:00" "30 Nov 14 16:30" "30 Nov 14 17:30"
+python isConflict.py "30 Nov 14 14:00" "30 Nov 14 19:00" "30 Nov 14 16:30" "30 Nov 14 17:30" 

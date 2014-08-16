@@ -95,7 +95,7 @@ def main():
       end = a
 
   if user == '' or pw == '':
-    print ('python calendarExample.py --user [username] --pw [password] ' +
+    print ('python timeframe.py --user [username] --pw [password] ' +
         '--start YYYY-MM-DD --end YYYY-MM-DD')
     sys.exit(2)
 
