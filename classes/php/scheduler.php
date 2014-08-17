@@ -236,6 +236,38 @@ class Scheduler {
 
 		return $startDate;
 	} //getFirstDateforDay
+
+
+	function consolidateSpans( $spans ){
+        /****************************************************************************
+        * returns: a list of spans
+        * parameters: span list
+        * precond: list of users > 0, window start is in future
+        */
+        
+			foreach ($spans as $cur){
+				foreach ($spans as $other) {
+					if (isConflict( $cur, $other ){
+						$cur = combineSpans( $cur, $other);
+						$spans.remove($other);
+					} //if
+				}// foreach
+			} //foreach 	
+			
+			return $spans
+
+   } //consolidateSpans
+
+   function combineSpans( $cur, $other ){
+        /****************************************************************************
+        * returns: merged span
+        * parameters: span, span
+        */
+        
+			$cur.start = min($cur.start, $other.start)
+         $cur.end = max($cur.end, $other.end)
+          return $cur
+   } //combineSpans
 }
 
 ?>
