@@ -92,22 +92,21 @@ class Scheduler {
 		$events = makeEventList( $users )
 
 		// make free time list
-		$freeTimes = makeFreeList( $winStart, $winEnd, $events);
+		$freeTimes = makeFreeTimes( $winStart, $winEnd, $events);
 
 		return $freeTimes
 		
 	} //findFreeTimes()
+
+	function makeFreeList( $winStart, $winEnd, $events ){
 		/*****************************************************************************
 		* returns: Span[] (free times)
 		* parameters: dateTime winStart, dateTime winEnd,  Span[] events
 		*/
-
-	function makeFreeList( $winStart, $winEnd, $events ){
-
-		# add empty space to freeTimes 
+		
 		$start = $winStart
-		for ($i = 1, $events.length() - 1, $i++){
-		   $freeTimes[] = Span( $start, $events[i].getStart());
+		for ($i = 0, $events.length() - 1, $i++){
+		   $freeTimes[] = new Span( $start, $events[i].getStart());
 		   $start = $events[i].getEnd();
 		}
 		$freeTimes[] = Span( $start, $winEnd);
@@ -189,6 +188,9 @@ class Scheduler {
           		WHERE p.email = '".$user->email()."';";
 
 
+
+          		// NOTE: TODO add constraint on query for window (low priority, because already contrained to current term)
+
 			$result = $db->query($sel);   
 
 			while( $row = $result->fetchArray()){  //fetches each class row
@@ -202,17 +204,20 @@ class Scheduler {
  					
  					$curDate = getFirstDateForDay($row.startDate, $day)  //returns a date
  					
-					while (curDate <= row.endDate) {  //add all spans for that day within the window
+					while (curDate <= $row.endDate) {  //add all spans for that day within the window
 						$eventDateTimeStart = convertToDateTime (curDate, row.startTime)  //specify thye time
 						$eventDateTimeEnd = convertToDateTime (curDate, row.endTime)
     					$events[] = new Span( $eventDateTimeStart, $eventDateTimeStart )
 
     					$curDate->add(new DateInterval('P7D')); //days in a week 
     				} //while
+    			} //foreach
   			} //while
 		} //foreach
 	} //getCourseEvents
 
+  
+	function getFirstDateforDay( $startDate, $day){
   /****************************************************************************
 	* returns: a date marking the first of reoccuring days
 	* parameters: startDate (of course), day
@@ -221,7 +226,6 @@ class Scheduler {
 	* ex: If the class is on M and W starting on 08/14/2014, we can use this function to
 	*     find the first W.
 	*/
-	function getFirstDateforDay( $startDate, $day){
 		$startDay = getDay($startDate);
 		$day1 = $_DAYS[$startDay]; //should return int (0-6)
 		$day2 = $_DAYS[$day];
