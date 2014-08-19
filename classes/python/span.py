@@ -58,7 +58,7 @@ class Span:
         else:
             return 0
 
-def covertGoogle( timeVal ):
+def convertGoogle( timeVal ):
     # Parameters: span
     # Returns: strings for Google request
     # precond: 
@@ -69,3 +69,6 @@ def printLegible( timeVal ):
     print time.strftime("%a, %d %b %Y %H:%M:%S", timeVal)
 
 
+def sortSpans(spans):
+    spans.sort(key=operator.attrgetter('start'))
+    return spans
