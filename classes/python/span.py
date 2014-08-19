@@ -47,15 +47,15 @@ class Span:
             printLegible(span.start)
             printLegible(span.end)
     
-    def compareTo( span1, span2 )
+    def compareSpans( span1, span2 ):
     # Parameters: spans
     # Returns: -1, 1,  for <, >, 0 if overlaps
     # precond: 
-        if span1.end < span2.start
+        if span1.end < span2.start:
             return -1
-        if span1.start > span2.end
+        if span1.start > span2.end:
             return 1
-        else
+        else:
             return 0
 
 
