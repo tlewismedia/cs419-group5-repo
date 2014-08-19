@@ -58,6 +58,12 @@ class Span:
         else:
             return 0
 
+def covertGoogle( timeVal ):
+    # Parameters: span
+    # Returns: strings for Google request
+    # precond: 
+    return time.strftime("%Y-%m-%dT%H:%M:%S.000-07:00", timeVal)
+
 
 def printLegible( timeVal ):
     print time.strftime("%a, %d %b %Y %H:%M:%S", timeVal)
