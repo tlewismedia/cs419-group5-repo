@@ -9,7 +9,7 @@ class User:
 		self.email = email
 		self.events = events
 
-	def printUser (self)
+	def printUser (self):
 		# Parameters: user
 		# Returns: 
 		print self.firstName 
