@@ -223,15 +223,4 @@ class Scheduler:
     return newDate
 
 
-# TEST getCalEvents:
-def main():
-  events = null;
-  users = ['fakeemail1@gmail.com', 'fakeemail2@gmail.com', 'fakeemail2@gmail.com', 'fakeemail4@gmail.com']
 
-  getCourseEvents(events, users);
-
-  print events
-
-
-if __name__ == "__main__":
-    main() 
