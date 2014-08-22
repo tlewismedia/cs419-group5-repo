@@ -7,8 +7,8 @@ class Span:
 #[startTime, endTime]
 
     def __init__(self, startTime, endTime):
-        self.start = time.strptime(startTime, "%d %b %y %H:%M")
-        self.end = time.strptime(endTime, "%d %b %y %H:%M")
+        self.start = startTime
+        self.end = endTime
 
     def isConflict( span1, span2 ):
     ######################################################################
@@ -39,13 +39,13 @@ class Span:
         cur.end = max(cur.end, other.end)
         return cur  
 
-    def printSpans(spans):
+    def printSpans(self, spans):
     # Parameters: List of Spans(startTime, EndTime) or print span
     # Returns:  void
     # Print spans startTime and endTime
         for span in spans:
-            printLegible(span.start)
-            printLegible(span.end)
+            print "SPAN: " + str(span.start) + "  to  " + str(span.end)
+           
     
     def compareSpans( span1, span2 ):
     # Parameters: spans
