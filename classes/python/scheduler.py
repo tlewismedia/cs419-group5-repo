@@ -3,6 +3,7 @@
 
 # includes here
 import datetime
+from span import *
 
 
 class Scheduler:
