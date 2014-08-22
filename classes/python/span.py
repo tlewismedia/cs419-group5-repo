@@ -8,6 +8,7 @@ class Span:
 #[startTime, endTime]
 
     def __init__(self, startTime, endTime):
+
         if isinstance(startTime, datetime.datetime):
             self.start = startTime
             self.end = endTime

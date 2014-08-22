@@ -257,5 +257,4 @@ class Scheduler:
     newDate = startDate + datetime.timedelta(days=delta)
 
     # print newDate
-
     return newDate
