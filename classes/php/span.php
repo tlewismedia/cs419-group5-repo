@@ -116,4 +116,21 @@ class Span {
      return date("Y-m-d H:i:s", strtotime('-1 minutes', $time));
   }
   
+  /*
+  *
+  */
+  
+  public function consolidateSpans($self,$span)
+    {
+        foreach($span as $cur)
+        {
+            if(isConflict($cur, $other))
+            {
+                $cur = $this->combineSpans($cur,$other );
+            }
+        }
+        
+        return $cur;
+    }
+  
 }
