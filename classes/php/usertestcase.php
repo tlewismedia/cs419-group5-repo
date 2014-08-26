@@ -7,7 +7,7 @@ include "User.php";
 $obj	=	new User();
 
 ### testing isConflict ####
-$result = $obj->printUser('Neeraj','Chandola','chandola.neeraj@gmail.com');
+$result = $obj->printUser('Krishna','Kodali','krishnakodali06@gmail.com');
 ?>
 
 
