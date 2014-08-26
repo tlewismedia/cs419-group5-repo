@@ -132,5 +132,25 @@ class Span {
         
         return $cur;
     }
+	
+	
+	/* function for sort span
+	*
+	*
+	*/
+	public function sortSpans($spans = array())
+	{
+	    foreach($spans as $span)
+		{
+		   $timespampspan[] = strtotime($span);
+		}
+		$newspan = asort($timespampspan);
+		foreach($newspan as $new)
+		{
+		   $returnspan[] = date('Y-m-d',$new);
+		}
+		return $returnspan;		
+	}
+	
   
 }
