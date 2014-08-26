@@ -28,4 +28,3 @@ class MyDB extends SQLite3
 // 			$result = $db->query($sel);
 
 ?>
-
