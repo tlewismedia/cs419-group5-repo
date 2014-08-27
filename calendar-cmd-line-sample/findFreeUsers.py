@@ -77,17 +77,23 @@ def getCalEvents(user, startTime, endTime):
       "the application to re-authorize")
 
 
-def findFreeUsers(emails, span):
+def findFreeUsers(emails, reqStart, reqEnd):
     availableUsers =[]
-    reqStart = timeConv.forGoogle(span.start)
-    reqEnd = timeConv.forGoogle(span.end)
+    span = Span(reqStart, reqEnd)
+    reqStart = timeConv.forGoogle(reqStart)
+    reqEnd = timeConv.forGoogle(reqEnd)
     for email in emails:
         free = True
+        user = [email]
         eventList = getCalEvents(email, reqStart, reqEnd)
-        eventList.append(Scheduler.getCourseEvents(email))
-        Span.printSpans(eventList)
         for event in eventList:
-            if Span.isConflict (event, span):
+            event.printSpan()
+        courseList = Scheduler.getCourseEvents(user)
+        if isinstance(courseList, list):
+            eventList = eventList + courseList
+        for event in eventList:
+
+            if Span.isConflict (span, event):
                 free = False
         if free == True:
             availableUsers.append(email)
@@ -97,10 +103,10 @@ if __name__ == '__main__':
     email = []
     email.append(sys.argv[1])
     email.append(sys.argv[2])
-    start = timeConv.stringtodt(sys.argv[3])
-    end = timeConv.stringtodt(sys.argv[4])
-    reqTime = Span(start, end)
-    freeUsers = findFreeUsers(email, reqTime)
+    reqStart = timeConv.stringtodt(sys.argv[3])
+    reqEnd= timeConv.stringtodt(sys.argv[4])
+
+    freeUsers = findFreeUsers(email, reqStart, reqEnd)
     for user in freeUsers:
         print user
 

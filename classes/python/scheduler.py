@@ -114,25 +114,28 @@ class Scheduler:
             "the application to re-authorize")
 
 
-    def findFreeUsers( emails, span ):
-        ######################################################################
-        # returns: a list of available users
-        # parameters: a list of users, [ window start, window end ]
-        # precond: list of users > 0, window start is in future,
-        # window end is reasonable
+    def findFreeUsers(emails, reqStart, reqEnd):
         availableUsers =[]
-        reqStart = timeConv.forGoogle(span.start)
-        reqEnd = timeConv.forGoogle(span.end)
+        span = Span(reqStart, reqEnd)
+        reqStart = timeConv.forGoogle(reqStart)
+        reqEnd = timeConv.forGoogle(reqEnd)
         for email in emails:
             free = True
+            user = [email]
             eventList = getCalEvents(email, reqStart, reqEnd)
-            Span.printSpans(eventList)
             for event in eventList:
-                if Span.isConflict (event, span):
+                event.printSpan()
+            courseList = Scheduler.getCourseEvents(user)
+            if isinstance(courseList, list):
+                eventList = eventList + courseList
+            for event in eventList:
+
+                if Span.isConflict (span, event):
                     free = False
             if free == True:
                 availableUsers.append(email)
         return availableUsers
+
 
     def isConflict( span, span ):
         ######################################################################
@@ -174,9 +177,9 @@ class Scheduler:
         return events
 
 
-    def getCourseEvents( events, users ):
+    def getCourseEvents( users ):
     ######################################################################
-    # returns: void
+    # returns: spans
     # parameters: refernce to event list, list of users
       
     db = MyDB()
@@ -236,11 +239,11 @@ class Scheduler:
                 eventDateTimeEnd = datetime.datetime.combine(datetime.date(year, month, day), datetime.time( ehour, eminute))  
                 
                 newSpan = Span( eventDateTimeStart, eventDateTimeEnd )
-
+                events = []
                 events.append(newSpan)
 
                 curDate = curDate + datetime.timedelta(days=7)  # days in a week 
-                
+        return events
 
 
     def getFirstDateForDay( startDate, letter):
