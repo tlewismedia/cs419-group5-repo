@@ -4,7 +4,7 @@
 # includes here
 import datetime
 from span import *
-
+from datetime import timedelta
 
 class Scheduler:
 
@@ -20,10 +20,13 @@ class Scheduler:
         "N": 0
     }
 
+    currentTime = datetime.datetime.now()
+    # ("Pacific") may be needed
+    in30days = currentTime + datetime.timedelta(days = 30)
     # def __init__(self):
         # init
 
-    def findFreeTimes(winStart, winEnd, users):
+    def findFreeTimes(winStart = currentTime, winEnd = in30days, users):
         ######################################################################
         # returns: a list of spans
         # parameters: a list of users, [ window start, window end ]
@@ -33,14 +36,12 @@ class Scheduler:
 
         events = []
 
-        # set window default
-        if not winStart:
-            winstart = datetime.datetime.now()
-        if not winEnd:
-            winEnd = winStart + timedelta(days=WINDOWDEFAULT)
+        # set window if end is < start
+        if winEnd < winStart
+            winEnd = winStart + datetime.timedelta(days = 30)
         
         # make event list
-        events = makeEventsLst( users )
+        events = makeEventsList( users )
 
         # make free time list
         freeTimes = makeFreeTimes( winStart, winEnd, events);
@@ -52,13 +53,18 @@ class Scheduler:
         ######################################################################
         # returns: Span[] (free times)
         # parameters: dateTime winStart, dateTime winEnd,  Span[] events
+        # include time before first listed event and time after so winStart, winEnd must be used
 
-        start = winStart
-        for i in range(0, events.length-1):
-            freeTimes[] = new Span(start, events[i].getStart())
-            start = events[i].getEnd()
-        }
-        $freeTimes[] = new Span( start, winEnd)
+        if len(events) < 1:
+            span = Span(winStart, winEnd)
+            freeTimes = [span]
+        else:
+            for event in events:
+                #think about this more if first eventStart=winStart
+                freeTimes[] = new Span(start, events[i].getStart())
+                start = events[i].getEnd()
+            }
+            $freeTimes[] = new Span( start, winEnd)
         
         return $freeTimes
 
