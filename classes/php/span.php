@@ -23,12 +23,12 @@ class Span {
  /*
   * Method to check conflict
   */
-  public function isConflict($start="",$end="") {
-     if(strtotime($start) < strtotime($end))
+  public function isConflict(span1,span2) {
+     if(strtotime($span1.start) >= strtotime($span2.end))
 	 {
 	  return false;
 	 }
-	 else if(strtotime($start) > strtotime($end))
+	 else if(strtotime($span2.start) >= strtotime($span1.end))
 	 {
 	  return false;
 	 }
@@ -41,12 +41,12 @@ class Span {
   /*
   * Method to check compareTo
   */
-  public function compareTo($start="",$end="") {
-     if(strtotime($start) < strtotime($end))
+  public function compareTo($span1,$span2) {
+     if(strtotime($span1.start) < strtotime($span2.end))
 	 {
 	  return "-1";
 	 }
-	 else if(strtotime($start) > strtotime($end))
+	 else if(strtotime($span2.start) > strtotime($span1.end))
 	 {
 	  return "1";
 	 }
