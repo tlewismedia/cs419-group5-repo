@@ -17,15 +17,6 @@ class Scheduler {
 	define("SPANUNIT", 1);
 	define("WINDOWDEFAULT", 30); //30 days
 	
-	$_DAYS = array(
-    "M" => 0,
-    "T" => 1,
-    "W" => 2,
-    "R" => 3,
-    "F" => 4,
-    "S" => 5,
-    "N" => 6
-	);
 
 	$_service;   // google cal api service object
 	
@@ -41,16 +32,6 @@ class Scheduler {
 		* returns: a list of spans
 		* parameters:  window start, window end 
 		* precond: list of users > 0, window start is in future, window end is reasonable
-		*/
-
-	}
-
-	function isConflict( span, span )
-	{
-		/*****************************************************************************
-		* returns: true if no conflicts
-		* parameters: span interval, span list events
-		* precond: list of users > 0, span length > 0
 		*/
 
 	}
@@ -98,52 +79,67 @@ class Scheduler {
 		
 	} //findFreeTimes()
 
-	function makeFreeList( $winStart, $winEnd, $events ){
+	function makeFreeTimes( $winStart, $winEnd, $events ){
 		/*****************************************************************************
 		* returns: Span[] (free times)
 		* parameters: dateTime winStart, dateTime winEnd,  Span[] events
 		*/
+		$count = count($events);
+		$freeTimes = array();
+		$i = 0;
 		
-		$start = $winStart
-		for ($i = 0, $events.length() - 1, $i++){
-		   $freeTimes[] = new Span( $start, $events[i].getStart());
-		   $start = $events[i].getEnd();
+		//check if first event starts the same time window starts
+		if ($winStart == $events[0]->start){
+			$start = $events[0]->end;
+			$i++;
+		} else {
+			$start = $winStart;
 		}
-		$freeTimes[] = Span( $start, $winEnd);
+
+		// make spans out of times between event
+		for ($i; $i < $count; $i++){
+			
+		   $span = new Span( $start, $events[$i]->start);
+		   $freeTimes[] = $span;
+		   $start = $events[$i]->end;
+		}
+		$freeTimes[] = new Span( $start, $winEnd);
 		
 
-		return $freeTimes
-
+		return $freeTimes;
 
 	}
 
-	function getCalEvents(&$events, $users){
+	function getCalEvents ( $users, $winStart, $winEnd, $client ){
 		/*****************************************************************************
-		* returns: void
-		* parameters: event list, list of users
-		*/
-		// http://stackoverflow.com/questions/17553273/how-to-finish-this-google-calendar-api-v3-freebusy-php-example/17991286#17991286
-		foreach ($users as $user){
-			$userNames[] = $user.getEmail();
-		}
-
+			* returns: void
+			* parameters: event list, list of users
+			*/
+		$eventList = array();
+		$tz = 'America/Los_Angeles';
 		$freebusy = new Google_FreeBusyRequest();
-		$freebusy->setTimeMin($winStart);
-		$freebusy->setTimeMax($winEnd);
-		$freebusy->setGroupExpansionMax(10);
-		$freebusy->setCalendarExpansionMax(10);
-		
-		$freebusy->setItems = $userNames;
-		$result = $service->freebusy->query($freebusy);
-		$cals = $result->getCalendars();
+		$freebusy->setTimeMin($winStart->format(DateTime::RFC3339));
+		$freebusy->setTimeMax($winEnd->format(DateTime::RFC3339));
+		$freebusy->setTimeZone($tz);
+		$item = new Google_FreeBusyRequestItem();
 
-		//for each calender in result, for each busy object make an event and add to list
-		foreach ($cals as $cal){
-			$busys = $cal->getBusy();
-			foreach ($busys as $busy){ 
-				$events[] = new $span($busy['start'], $busy['end']);
-			}
+		foreach ($users as $user){
+
+			$item->setId($user);
+			$freebusy->setItems(array($item));
+			$service = new Google_CalendarService($client);  
+			$request = $service->freebusy->query($freebusy);
+			// return $request;
+			$cals = $request['calendars'];
+
+	   	$busys = $cals[$user]['busy']; //get user's busys
+	   	
+	   	foreach ($busys as $busy) {
+	   		$eventList[] = new Span(new DateTime($busy['start']), new DateTime($busy['end']));
+	   	}
 		}
+		
+		return $eventList;
 	}
 
 	function makeEventList( $winStart, $winEnd, $users )
@@ -166,76 +162,147 @@ class Scheduler {
 		
 	} //makeEventList
 
-	function getCourseEvents(&$events, &$users){
-	{
-		/*****************************************************************************
-		* returns: void
-		* parameters: refernce to event list, list of users
-		*/
+	function getCourseEvents($events, $users){
+
+	// ****************************************************************************
+	// * returns: void
+	// * parameters: refernce to event list, list of users
+
+
 	//get events from courses DB for each user
-		$db = new MyDB();
+
+	$output = "";
+	$db = new MyDB();
 
 
-		//for each user
-		//		for each class
-		//			for each day of that class
+  // http://stackoverflow.com/questions/7538927/mysql-select-statement-with-php-array
+ 
 
+
+  $userids = "p.email = '".implode("' \n   OR p.email = '",$users)."'";
+
+  ChromePhp::log($userids);
+
+	$sel = "SELECT p.firstName, c.days, c.startDate, c.endDate, c.startTime, c.endTime   FROM Courses c
+	INNER JOIN CoursesProfs cp ON cp.cid = c.prof
+	INNER JOIN Profs p ON p.email = cp.pid
+	WHERE $userids";
+
+
+	$result = $db->query($sel);
+
+
+   $courses = array();
+
+   $i = 0;
+
+   //get all the coursess for each class, store in courses
+  while($res = $result->fetchArray(SQLITE3_ASSOC)){
+		$courses[$i]['days'] = str_split($res['days']); //convert to array of char
+
+
+		$courses[$i]['startDate'] = DateTime::createFromFormat('m/d/y', $res['startDate']);
+
+
+		$courses[$i]['endDate'] = DateTime::createFromFormat('m/d/y',$res['endDate']);
 		
-		foreach ($users as $user){
-			$sel = "SELECT p.firstName, c.days, c.startDate, c.endDate, c.startTime, c.endTime   FROM Courses c
-          		INNER JOIN CoursesProfs cp ON cp.cid = c.prof
-          		INNER JOIN Profs p ON p.email = cp.pid
-          		WHERE p.email = '".$user->email()."';";
+    //format start time
+    if (strlen($res['startTime']) == 3) {
+			$res['startTime'] = '0'.$res['startTime']; //prepend 0 if only 3 digits
+		}
+		$tempTime = substr($res['startTime'], 0, 2).':'.substr($res['startTime'], 2, 2);
+		$courses[$i]['startTime'] = DateTime::createFromFormat('H:i', $tempTime);
+		
+
+    //format start time
+    if (strlen($res['endTime']) == 3) {
+      $res['endTime'] = '0'.$res['endTime']; //prepend 0 if only 3 digits
+    }
+
+    $tempTime = substr($res['endTime'], 0, 2).':'.substr($res['endTime'], 2, 2);
+		$courses[$i]['endTime'] = DateTime::createFromFormat('H:i', $tempTime);
+
+		$i++;
+  }
+
+  //checking starttimes
+  foreach ($courses as $course) {
+
+  }
 
 
+   $i = 0;
+   $spans = array();
+   foreach ($courses as $course) {
 
-          		// NOTE: TODO add constraint on query for window (low priority, because already contrained to current term)
+   	foreach ($course['days'] as $letter){ //for each letter day of course
+   		$curDate = getFirstDateForDay($course['startDate'], $letter);
+   		while ($curDate <= $course['endDate']){  #add all spans for that day within the window
 
-			$result = $db->query($sel);   
+                // date = $curDate.date()
+                $year = $curDate->format('Y');
+                $month = $curDate->format('m');
+                $day = $curDate->format('d');
+                $shour = $course['startTime']->format('H');
+                $smin = $course['startTime']->format('i');
+                $ehour = $course['endTime']->format('H');
+                $emin = $course['endTime']->format('i');
 
-			while( $row = $result->fetchArray()){  //fetches each class row
-    			
- 				//get the days
- 				$daysArr = str_spli($row.days);
- 				
- 				//add course span for each day
- 				foreach ($daysArr as $letter){  //for each day of that class
- 					$day = DAYMAP[$letter];
- 					
- 					$curDate = getFirstDateForDay($row.startDate, $day)  //returns a date
- 					
-					while (curDate <= $row.endDate) {  //add all spans for that day within the window
-						$eventDateTimeStart = convertToDateTime (curDate, row.startTime)  //specify thye time
-						$eventDateTimeEnd = convertToDateTime (curDate, row.endTime)
-    					$events[] = new Span( $eventDateTimeStart, $eventDateTimeStart )
+                $startString = $year.$month.$day.$shour.$smin;
+                $eventDateTimeStart = DateTime::createFromFormat('YmdHi', $startString);
 
-    					$curDate->add(new DateInterval('P7D')); //days in a week 
-    				} //while
-    			} //foreach
-  			} //while
-		} //foreach
-	} //getCourseEvents
+                $endString = $year.$month.$day.$ehour.$emin;
+                $eventDateTimeEnd = DateTime::createFromFormat('YmdHi', $endString);
+                $spans[$i]['start'] =  $eventDateTimeStart;
+                $spans[$i]['end'] =  $eventDateTimeEnd;
+
+
+                // newSpan = Span( eventDateTimeStart, eventDateTimeEnd )
+
+                // events.append(newSpan)
+
+                
+                $curDate->modify('+7 day');
+
+   			$i++;
+   		}//while
+   	} //each
+  } //each
+  return $spans;
+}//getCourseEvents
 
   
-	function getFirstDateforDay( $startDate, $day){
-  /****************************************************************************
-	* returns: a date marking the first of reoccuring days
-	* parameters: startDate (of course), day
-	* precond: day must be in DAYMAP
-	*
-	* ex: If the class is on M and W starting on 08/14/2014, we can use this function to
-	*     find the first W.
-	*/
-		$startDay = getDay($startDate);
-		$day1 = $_DAYS[$startDay]; //should return int (0-6)
-		$day2 = $_DAYS[$day];
-		$daysToAdd = (($day2 + $_DAYS.length()) - $day1) % $_DAYS.length();  //find num days to add
+	function getFirstDateForDay( $startDate, $letter){
+    ######################################################################
+    # returns: dateTime for first occurance of day (name) after the startDate
+    # parameters: dateTime startDate (of Course), day (letter)
+    #
+    # ex: If the class is on M and W starting on 08/14/2014, we can use this function to
+    #     find the first W.
 
+   // date("N", $timestamp)
 
-		$startDate->add(new DateInterval('P'.$daysToAdd.'D'));
+		$DAYS = array(
+			'M'=> 1,
+			'T'=> 2,
+			'W'=> 3,
+			'R'=> 4,
+			'F'=> 5,
+			'S'=> 6,
+			'N'=> 0
+		);
+
+		$day1 = date('N',date_timestamp_get($startDate));
+		$day2 = $DAYS[$letter];
+
+		$delta = ($day2 + 7 - $day1) % 7;  //find num days to add
+		$startDate->modify('+'.$delta.' day');
+		// $newDate = $startDate + datetime.timedelta(days=delta);
 
 		return $startDate;
-	} //getFirstDateforDay
+
+	}
+
 
 
 	function consolidateSpans( $spans ){
