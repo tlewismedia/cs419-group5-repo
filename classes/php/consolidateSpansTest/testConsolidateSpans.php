@@ -67,12 +67,12 @@ function consolidateSpans ( $spans ){
 
 			foreach ($spans as $cur){
 				foreach ($spans as $other) {
-					if ($cur->isConflict( $cur, $other ){
+					if ($cur->isConflict( $cur, $other )){
 						$cur = combineSpans( $cur, $other);
 						$spans.remove($other);
 					} //if
 				}// foreach
 			} //foreach 	
 			
-			return $spans
+			return $spans;
 }
