@@ -277,11 +277,12 @@ class Scheduler:
         events += eventList
         print len(events)
         events.pop(0)
+        Span.sortSpans(events)
         print len(events)
         for event in events:
             event.printSpan()            
             #print isinstance(event, Span)
-        Span.consolidateSpans(eventList)
+        Span.consolidateSpans(events)
         print len(events)
         for event in events:
             event.printSpan()
