@@ -14,21 +14,21 @@
 class Span {
 
 
-   public function __construct($start,$end) {
-        $this->start = $start;
-		$this->end = $end;
+   public function __construct($span1=array(),$span2=array()) {
+        $this->span1 = $span1;
+		$this->span2 = $span2;
     }
 	
 
  /*
   * Method to check conflict
   */
-  public function isConflict($start="",$end="") {
-     if(strtotime($start) < strtotime($end))
+  public function isConflict($span1="",$span2="") {
+     if(strtotime($span1['end']) < strtotime($span2['start']))
 	 {
 	  return false;
 	 }
-	 else if(strtotime($start) > strtotime($end))
+	 else if(strtotime($span2['end']) > strtotime($span1['start']))
 	 {
 	  return false;
 	 }
@@ -41,12 +41,12 @@ class Span {
   /*
   * Method to check compareTo
   */
-  public function compareTo($start="",$end="") {
-     if(strtotime($start) < strtotime($end))
+  public function compareSpans($span1="",$span2="") {
+     if(strtotime($span1['end']) < strtotime($span2['start']))
 	 {
 	  return "-1";
 	 }
-	 else if(strtotime($start) > strtotime($end))
+	 else if(strtotime($span1['start']) > strtotime($span2['end']))
 	 {
 	  return "1";
 	 }
@@ -56,14 +56,26 @@ class Span {
 	 }
   }
   
+  /* function to print span
+  *
+  */
+  public function printSpan($span)
+  {
+	echo $span['start'];
+	echo $span['end'];
+  }
+  
   
   /* function to print span
   *
   */
   public function printSpans($span = array())
   {
-	echo $span['start'];
-	echo $span['end'];
+    foreach($span as $spans)
+	{
+	  echo $spans['start'];
+	  echo $spans['end'];
+	}
   }
   
  /* function to print span
@@ -102,8 +114,8 @@ class Span {
   Span trime increment by 1 unit // 1 unit = 1 minute assumed
   $start (2014-08-12 10:12:12)
   */
-  public function spanIncrEnd($start="") {
-	 $time = strtotime($start);
+  public function spanIncrEnd($span="") {
+	 $time = strtotime($span);
      return date("Y-m-d H:i:s", strtotime('+1 minutes', $time));
   }
   
@@ -111,8 +123,8 @@ class Span {
   Span trime decrement by 1 unit // 1 unit = 1 minute assumed
   $start (2014-08-12 10:12:12)
   */
-  public function spanDecEnd($start="") {
-	 $time = strtotime($start);
+  public function spanDecEnd($span="") {
+	 $time = strtotime($span);
      return date("Y-m-d H:i:s", strtotime('-1 minutes', $time));
   }
   
@@ -134,7 +146,7 @@ class Span {
     }
 	
 	
-	/* function for sort span
+	/* function for sorhey i ahve also t span
 	*
 	*
 	*/
