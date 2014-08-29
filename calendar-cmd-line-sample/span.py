@@ -2,6 +2,7 @@ import time
 from datetime import *
 import datetime
 import sys
+import operator
 
 class Span:
 
@@ -48,7 +49,9 @@ class Span:
 
     def printSpan(self):
         timeConv.printLegible(self.start)
+        print ("-"),
         timeConv.printLegible(self.end)
+        print " "
 
     @staticmethod 
     def printSpans( spans):
@@ -56,7 +59,7 @@ class Span:
     # Returns:  void
     # Print spans startTime and endTime
         for span in spans:
-            Span.printSpan(span)
+            span.printSpan()
 
     @staticmethod 
     def consolidateSpans(spans ):
@@ -87,7 +90,8 @@ class timeConv:
 
     @staticmethod
     def printLegible( timeVal ):
-        print timeVal.strftime("%a, %d %b %Y %H:%M")
+        v = timeVal.strftime("%a, %d %b %Y %H:%M")
+        print(v),
 
     @staticmethod    
     def deGoogle(timeVal):
