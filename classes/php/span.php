@@ -43,12 +43,12 @@ class Span {
   /*
   * Method to check compareTo
   */
-  public function compareTo($span1,$span2) {
-     if(strtotime($span1.start) < strtotime($span2.end))
+  public function compareTo($start="",$end="") {
+     if(strtotime($start) < strtotime($end))
 	 {
 	  return "-1";
 	 }
-	 else if(strtotime($span2.start) > strtotime($span1.end))
+	 else if(strtotime($start) > strtotime($end))
 	 {
 	  return "1";
 	 }
@@ -58,14 +58,26 @@ class Span {
 	 }
   }
   
+  /* function to print span
+  *
+  */
+  public function printSpan($span)
+  {
+	echo $span['start'];
+	echo $span['end'];
+  }
+  
   
   /* function to print span
   *
   */
   public function printSpans($span = array())
   {
-	echo $span['start'];
-	echo $span['end'];
+    foreach($span as $spans)
+	{
+	  echo $spans['start'];
+	  echo $spans['end'];
+	}
   }
   
  /* function to print span
@@ -136,7 +148,7 @@ class Span {
     }
 	
 	
-	/* function for sort span
+	/* function for sorhey i ahve also t span
 	*
 	*
 	*/
