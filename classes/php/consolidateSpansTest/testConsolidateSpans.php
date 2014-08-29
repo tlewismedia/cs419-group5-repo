@@ -40,8 +40,8 @@ if ($client->getAccessToken()) {
   	$span5 = new Span(new DateTime("2014-07-08 14:35"), new DateTime("2014-07-08 14:55"));
   	
   	$spans = array($span1, $span2, $span3, $span4, $span5 );
-	
-	var_dump(consolidateSpans( $spans));
+	   var_dump($span1->isConflict($span1, $span2));
+	// var_dump(consolidateSpans( $spans));
 
 	/*
 		output should be [10:16 - 10:19][11:14 - 14:14][ 14:16 - 14:55 ] */
