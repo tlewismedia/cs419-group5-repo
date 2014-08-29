@@ -14,21 +14,22 @@
 class Span {
 
 
-   public function __construct($start,$end) {
-        $this->start = $start;
-		$this->end = $end;
-    }
+   public function __construct($span1=array(),$span2=array()) {
+       $this->span1 = $span1;
+               $this->span2 = $span2;
+   }
 	
 
  /*
   * Method to check conflict
   */
-  public function isConflict(span1,span2) {
-     if(strtotime($span1.start) >= strtotime($span2.end))
+  
+  public function isConflict($span1="",$span2="") {
+     if(strtotime($span1['end']) < strtotime($span2['start']))
 	 {
 	  return false;
 	 }
-	 else if(strtotime($span2.start) >= strtotime($span1.end))
+	 else if(strtotime($span2['end']) > strtotime($span1['start']))
 	 {
 	  return false;
 	 }
@@ -36,7 +37,8 @@ class Span {
 	 {
 	  return true;
 	 }
-  }
+  } 
+  
 	
   /*
   * Method to check compareTo
