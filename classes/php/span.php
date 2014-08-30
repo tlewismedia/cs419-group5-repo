@@ -7,7 +7,7 @@
 // Define an SPAN class that can be used to connect
 // and communicate with google calender api.
 //
-// Author: Krishna Kodali
+// Author: Kodali Krishna
 //
 // License: N/A
 ////////////////////////////////////////////////////
@@ -15,8 +15,10 @@ class Span {
 
 
    public function __construct($span1=array(),$span2=array()) {
-        $this->span1 = $span1;
-		$this->span2 = $span2;
+		if($span1['end'] == ""){$span1['end'] = date('Y-m-d H:i:s');}
+		if($span1['start'] == ""){$span1['start'] = date('Y-m-d H:i:s');}
+		if($span2['end'] == ""){$span2['end'] = date('Y-m-d H:i:s');}
+		if($span2['start'] == ""){$span2['start'] = date('Y-m-d H:i:s');}
     }
 	
 
