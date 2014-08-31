@@ -154,11 +154,11 @@ class Scheduler {
 		getCalEvents($events, $users);
 		getCourseEvents($events, $users);
 
-		//consolidateSpans($events)
+		$consol =consolidateSpans($events)
 
-		//sortSpans($events)
+		$sorted = sortSpans($consol)
 
-		return $events;
+		return $sorted;
 		
 	} //makeEventList
 
@@ -305,35 +305,35 @@ class Scheduler {
 
 
 
-	function consolidateSpans( $spans ){
-        /****************************************************************************
+	function consolidateSpans ( $spans ){
+	 /****************************************************************************
         * returns: a list of spans
         * parameters: span list
         * precond: list of users > 0, window start is in future
         */
-        
+
 			foreach ($spans as $cur){
 				foreach ($spans as $other) {
-					if (isConflict( $cur, $other ){
-						$cur = combineSpans( $cur, $other);
-						$spans.remove($other);
+					if ($cur->isConflict( $cur, $other )){
+						$new = combineSpans( $cur, $other);
+            $spans[array_search($cur, $spans)] = $new;
+						if ($cur != $other) unset($spans[array_search($other, $spans)]);
 					} //if
 				}// foreach
 			} //foreach 	
 			
-			return $spans
+			return $spans;
+}
 
-   } //consolidateSpans
-
-   function combineSpans( $cur, $other ){
+function combineSpans( $cur, $other ){
         /****************************************************************************
         * returns: merged span
         * parameters: span, span
         */
         
-			$cur.start = min($cur.start, $other.start)
-         $cur.end = max($cur.end, $other.end)
-          return $cur
+      $cur->start = min($cur->start, $other->start);
+      $cur->end = max($cur->end, $other->end);
+      return $cur;
    } //combineSpans
 }
 
