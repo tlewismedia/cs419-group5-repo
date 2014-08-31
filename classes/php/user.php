@@ -1,30 +1,22 @@
 <?php
-////////////////////////////////////////////////////
-// USER - PHP User class
-//
-// Version 1.01
-//
-// Define an USER class 
-//
-// Author: Krishna Kodali
-//
-// License: N/A
-////////////////////////////////////////////////////
+/**
+* user class
+*/
 class User {
-   public function __construct($firstname,$lastname,$email,$events=array()) {
-        $this->firstname = $firstname;
-		$this->lastname = $lastname;
-		$this->email = $email;
-		$this->events = $events;
+
+   public function __construct($firstName,$lastName,$email) {
+      $this->firstName = $firstName;
+		  $this->lastName = $lastName;
+		  $this->email = $email;
     }
 	
   /*
   * Method to check conflict return bool value
   
   */
-  public function printUser($firstname="",$lastname="",$email="") {
-     echo $firstname;
-	 echo $lastname;
-	 echo $email;
+  public function printUser($firstName, $lastName, $email ) {
+    echo $firstName;
+	  echo $lastName;
+	   echo $email;
   } 
 }

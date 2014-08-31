@@ -4,8 +4,9 @@
 */
 
 
-require_once "classes/Span.php";
-require_once "classes/MyDB.php";
+require_once "span.php";
+require_once "MyDB.php";
+require_once "user.php";
 
 // * Note: names of private properties or methods should be preceeded by an underscore.
 
@@ -22,10 +23,10 @@ class Scheduler {
 	// $_service;   // google cal api service object
 	
 	// pass in the api service object on construction
-	function Scheduler($service) 
-	{
-		$_service = $service;
-	}
+	// function Scheduler($) 
+	// {
+	// 	$_service = $service;
+	// }
 
 	function findFreeUsers( $winStart, $winEnd )
 	{
@@ -55,13 +56,44 @@ class Scheduler {
 
 	}
 
-	function findFreeTimes( $winStart, $winEnd, $users )
+	function makeEventList( $winStart, $winEnd, $users, $client )
+	{
+		/*****************************************************************************
+		* returns: a list of spans (courses and calendar events of users)
+		* parameters: a list of users, [ window start, window end ]
+		* precond: list of users > 0, window start is in future, window end is reasonable
+		*/
+		
+	
+		$events = $this->getCalEvents($winStart, $winEnd, $users, $client);
+		$this->getCourseEvents($events, $users);
+
+		$consol = $this->consolidateSpans($events);
+
+		// echo "consol:<br>";
+		
+
+		$spTemp = new Span(null, null);
+		$spTemp->sortSpans($consol);
+
+		// echo "sorted:<br>";
+		// var_dump($consol);
+
+		return $consol;
+		
+	} //makeEventList
+
+
+	function findFreeTimes( $winStart, $winEnd, $users, $client )
 	{
 		/*****************************************************************************
 		* returns: a list of spans
 		* parameters: a list of users, [ window start, window end ]
 		* precond: list of users > 0, window start is in future, window end is reasonable
 		*/
+
+
+		// var_dump($client);
 
 		$events = array();
 		$freeTimes = array();
@@ -71,10 +103,13 @@ class Scheduler {
 		if (!$winEnd) $winEnd = $winStart->add(new DateInterval('P'.WINDOWDEFAULT.'D'));
 
 		//make event list
-		$events = makeEventList( $users );
+		$events = $this->makeEventList( $winStart, $winEnd, $users, $client );
 
+
+		// echo "eventlist:<br>";
+		// var_dump($events);
 		// make free time list
-		$freeTimes = makeFreeTimes( $winStart, $winEnd, $events);
+		$freeTimes = $this->makeFreeTimes( $winStart, $winEnd, $events);
 
 		return $freeTimes;
 		
@@ -90,6 +125,9 @@ class Scheduler {
 		$i = 0;
 		
 		//check if first event starts the same time window starts
+
+		
+
 		if ($winStart == $events[0]->start){
 			$start = $events[0]->end;
 			$i++;
@@ -111,9 +149,9 @@ class Scheduler {
 
 	}
 
-	function getCalEvents ( $users, $winStart, $winEnd, $client ){
+	function getCalEvents ( $winStart, $winEnd, $users, $client ){
 		/*****************************************************************************
-			* returns: void
+			* returns: events
 			* parameters: event list, list of users
 			*/
 		$eventList = array();
@@ -124,16 +162,26 @@ class Scheduler {
 		$freebusy->setTimeZone($tz);
 		$item = new Google_FreeBusyRequestItem();
 
+		// $emails = array();
+		// foreach ($ as $key => $value) {
+		// 	# code...
+		// }
+
 		foreach ($users as $user){
 
-			$item->setId($user);
+			$item->setId($user->email);
 			$freebusy->setItems(array($item));
 			$service = new Google_CalendarService($client);  
 			$request = $service->freebusy->query($freebusy);
 			// return $request;
+
+			
 			$cals = $request['calendars'];
 
-	   	$busys = $cals[$user]['busy']; //get user's busys
+
+			
+
+	   	$busys = $cals[$user->email]['busy']; //get user's busys
 	   	
 	   	foreach ($busys as $busy) {
 	   		$eventList[] = new Span(new DateTime($busy['start']), new DateTime($busy['end']));
@@ -143,25 +191,7 @@ class Scheduler {
 		return $eventList;
 	}
 
-	function makeEventList( $winStart, $winEnd, $users )
-	{
-		/*****************************************************************************
-		* returns: a list of spans (courses and calendar events of users)
-		* parameters: a list of users, [ window start, window end ]
-		* precond: list of users > 0, window start is in future, window end is reasonable
-		*/
-		$events = array();
 	
-		getCalEvents($events, $users);
-		getCourseEvents($events, $users);
-
-		$consol =consolidateSpans($events);
-
-		$sorted = sortSpans($consol);
-
-		return $sorted;
-		
-	} //makeEventList
 
 	function getCourseEvents($events, $users){
 
@@ -175,14 +205,21 @@ class Scheduler {
 	$output = "";
 	$db = new MyDB();
 
+	
+
+	$emails = array();
+	foreach ($users as $user){
+		$emails[] = $user->email;
+	}
+
 
   // http://stackoverflow.com/questions/7538927/mysql-select-statement-with-php-array
  
 
 
-  $userids = "p.email = '".implode("' \n   OR p.email = '",$users)."'";
+  $userids = "p.email = '".implode("' \n   OR p.email = '",$emails)."'";
 
-  ChromePhp::log($userids);
+  // ChromePhp::log($userids);
 
 	$sel = "SELECT p.firstName, c.days, c.startDate, c.endDate, c.startTime, c.endTime   FROM Courses c
 	INNER JOIN CoursesProfs cp ON cp.cid = c.prof
@@ -237,7 +274,7 @@ class Scheduler {
    foreach ($courses as $course) {
 
    	foreach ($course['days'] as $letter){ //for each letter day of course
-   		$curDate = getFirstDateForDay($course['startDate'], $letter);
+   		$curDate = $this->getFirstDateForDay($course['startDate'], $letter);
    		while ($curDate <= $course['endDate']){  #add all spans for that day within the window
 
                 // date = $curDate.date()
@@ -316,7 +353,7 @@ class Scheduler {
 			foreach ($spans as $cur){
 				foreach ($spans as $other) {
 					if ($cur->isConflict( $cur, $other )){
-						$new = combineSpans( $cur, $other);
+						$new = $this->combineSpans( $cur, $other);
             $spans[array_search($cur, $spans)] = $new;
 						if ($cur != $other) unset($spans[array_search($other, $spans)]);
 					} //if

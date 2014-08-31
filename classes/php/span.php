@@ -52,7 +52,10 @@ public $end = null;
 			return ($s1->start < $s2->start) ? -1 : 1;
 		}
 
-		usort($spans, 'compareSpans');	
+		usort($spans, 'compareSpans');
+
+		// echo "in sort, post:<br>";
+		// var_dump($spans);	
 		  	
 	}
 

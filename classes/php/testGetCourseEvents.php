@@ -7,7 +7,7 @@ ini_set('xdebug.var_display_max_data', 1024);
 error_reporting(-1);
 
 require_once "MyDB.php";
-include 'ChromePhp.php';
+// include 'ChromePhp.php';
 
 
 
@@ -73,7 +73,7 @@ function getCourseEvents($events, $users){
 
   $userids = "p.email = '".implode("' \n   OR p.email = '",$users)."'";
 
-  ChromePhp::log($userids);
+  // ChromePhp::log($userids);
 
 	$sel = "SELECT p.firstName, c.days, c.startDate, c.endDate, c.startTime, c.endTime   FROM Courses c
 	INNER JOIN CoursesProfs cp ON cp.cid = c.prof
