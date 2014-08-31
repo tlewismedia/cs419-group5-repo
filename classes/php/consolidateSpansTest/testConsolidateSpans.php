@@ -33,15 +33,38 @@ if (isset($_SESSION['token'])) {
 
 if ($client->getAccessToken()) {
   	
-  	$span1 = new Span(new DateTime("2014-07-08 11:14"), new DateTime("2014-07-08 14:14"));
-  	$span2 = new Span(new DateTime("2014-07-08 11:16"), new DateTime("2014-07-08 14:14"));
+   //  echo "true?";
+  	// $span1 = new Span(new DateTime("2014-07-08 11:14"), new DateTime("2014-07-08 14:14"));
+  	// $span2 = new Span(new DateTime("2014-07-08 11:16"), new DateTime("2014-07-08 14:14"));
+   //  var_dump($span1->isConflict($span1, $span2));
+
+   //  echo "false?";
+   //  $span1 = new Span(new DateTime("2014-07-08 11:14"), new DateTime("2014-07-08 14:14"));
+   //  $span2 = new Span(new DateTime("2014-07-08 15:16"), new DateTime("2014-07-08 16:14"));
+   //  var_dump($span1->isConflict($span1, $span2));
+
+   //  echo "true?";
+   //  $span1 = new Span(new DateTime("2014-07-08 11:14"), new DateTime("2014-07-08 14:14"));
+   //  $span2 = new Span(new DateTime("2014-07-08 11:14"), new DateTime("2014-07-08 14:14"));
+   //  var_dump($span1->isConflict($span1, $span2));
+
+   //  echo "true?";
+   //  $span1 = new Span(new DateTime("2014-07-08 11:14"), new DateTime("2014-07-08 14:14"));
+   //  $span2 = new Span(new DateTime("2014-07-08 9:14"), new DateTime("2014-07-08 12:14"));
+   //  var_dump($span1->isConflict($span1, $span2));
+
+
+    $span1 = new Span(new DateTime("2014-07-08 11:14"), new DateTime("2014-07-08 14:14"));
+    $span2 = new Span(new DateTime("2014-07-08 11:16"), new DateTime("2014-07-08 14:14"));
   	$span3 = new Span(new DateTime("2014-07-08 10:16"), new DateTime("2014-07-08 10:19"));
   	$span4 = new Span(new DateTime("2014-07-08 14:16"), new DateTime("2014-07-08 14:45"));
   	$span5 = new Span(new DateTime("2014-07-08 14:35"), new DateTime("2014-07-08 14:55"));
   	
-  	$spans = array($span1, $span2, $span3, $span4, $span5 );
-	   var_dump($span1->isConflict($span1, $span2));
-	// var_dump(consolidateSpans( $spans));
+  	
+    $spans = array($span1, $span2, $span3, $span4, $span5 );
+	
+  echo "consolidated spans should be [11:14, 14:14], [10:16, 10:19], [14:16, 14:55]" ;  
+	var_dump(consolidateSpans( $spans));
 
 	/*
 		output should be [10:16 - 10:19][11:14 - 14:14][ 14:16 - 14:55 ] */
@@ -62,17 +85,27 @@ function consolidateSpans ( $spans ){
         * parameters: span list
         * precond: list of users > 0, window start is in future
         */
-        
-	 	
 
 			foreach ($spans as $cur){
 				foreach ($spans as $other) {
 					if ($cur->isConflict( $cur, $other )){
-						$cur = combineSpans( $cur, $other);
-						$spans.remove($other);
+						$new = combineSpans( $cur, $other);
+            $spans[array_search($cur, $spans)] = $new;
+						if ($cur != $other) unset($spans[array_search($other, $spans)]);
 					} //if
 				}// foreach
 			} //foreach 	
 			
 			return $spans;
 }
+
+function combineSpans( $cur, $other ){
+        /****************************************************************************
+        * returns: merged span
+        * parameters: span, span
+        */
+        
+      $cur->start = min($cur->start, $other->start);
+      $cur->end = max($cur->end, $other->end);
+      return $cur;
+   } //combineSpans
