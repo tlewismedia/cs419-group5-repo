@@ -11,14 +11,15 @@ require_once "classes/MyDB.php";
 
 
 define('DEBUG', true);
+define("WINDOWDEFAULT", 30); //30 days
 
 class Scheduler {
 
-	define("SPANUNIT", 1);
-	define("WINDOWDEFAULT", 30); //30 days
+	// define("SPANUNIT", 1);
+	
 	
 
-	$_service;   // google cal api service object
+	// $_service;   // google cal api service object
 	
 	// pass in the api service object on construction
 	function Scheduler($service) 
@@ -26,7 +27,7 @@ class Scheduler {
 		$_service = $service;
 	}
 
-	function findFreeUsers( winStart, winEnd )
+	function findFreeUsers( $winStart, $winEnd )
 	{
 		/*****************************************************************************
 		* returns: a list of spans
@@ -47,7 +48,7 @@ class Scheduler {
 		*/
 
 		foreach ($events as $event){
-			if isConflict($event, $interval)
+			if (isConflict($event, $interval))
 				return false;
 		}
 		return true;
@@ -70,12 +71,12 @@ class Scheduler {
 		if (!$winEnd) $winEnd = $winStart->add(new DateInterval('P'.WINDOWDEFAULT.'D'));
 
 		//make event list
-		$events = makeEventList( $users )
+		$events = makeEventList( $users );
 
 		// make free time list
 		$freeTimes = makeFreeTimes( $winStart, $winEnd, $events);
 
-		return $freeTimes
+		return $freeTimes;
 		
 	} //findFreeTimes()
 
@@ -149,14 +150,14 @@ class Scheduler {
 		* parameters: a list of users, [ window start, window end ]
 		* precond: list of users > 0, window start is in future, window end is reasonable
 		*/
-		$events = [];
+		$events = array();
 	
 		getCalEvents($events, $users);
 		getCourseEvents($events, $users);
 
-		$consol =consolidateSpans($events)
+		$consol =consolidateSpans($events);
 
-		$sorted = sortSpans($consol)
+		$sorted = sortSpans($consol);
 
 		return $sorted;
 		
