@@ -16,25 +16,49 @@ define("WINDOWDEFAULT", 30); //30 days
 
 class Scheduler {
 
-	// define("SPANUNIT", 1);
-	
-	
 
-	// $_service;   // google cal api service object
-	
-	// pass in the api service object on construction
-	// function Scheduler($) 
-	// {
-	// 	$_service = $service;
-	// }
-
-	function findFreeUsers( $winStart, $winEnd )
+	function findFreeUsers( $users, $winStart, $winEnd, $client )
 	{
 		/*****************************************************************************
 		* returns: a list of spans
 		* parameters:  window start, window end 
 		* precond: list of users > 0, window start is in future, window end is reasonable
 		*/
+
+		//set win defaults
+		// if (!$winStart) $winStart = new DateTime();
+		// if (!$winEnd) $winEnd = $winStart->add(new DateInterval('P'.WINDOWDEFAULT.'D'));
+
+		$window = new Span( $winStart, $winEnd );
+
+		$freeUsers = array();
+
+		// for each user, get their events
+			// if none of their events conflict with the window, they are included on free user list
+
+		
+
+		foreach ($users as $user){
+			$singleUserArr = array($user);
+			$userEvents = $this->makeEventList( $winStart, $winEnd, $singleUserArr, $client );
+
+
+
+
+			$include = true;
+
+			foreach ($userEvents as $event) {
+				if ($event->isConflict($event, $window )){
+					$include = false;
+					continue;
+				}
+			}
+
+			//add to list
+			if ($include) $freeUsers[] = $user;
+		}
+
+		return $freeUsers;
 
 	}
 
@@ -64,20 +88,24 @@ class Scheduler {
 		* precond: list of users > 0, window start is in future, window end is reasonable
 		*/
 		
-	
+
 		$events = $this->getCalEvents($winStart, $winEnd, $users, $client);
+
+
 		$this->getCourseEvents($events, $users);
+
+
 
 		$consol = $this->consolidateSpans($events);
 
-		// echo "consol:<br>";
+
+
 		
 
 		$spTemp = new Span(null, null);
 		$spTemp->sortSpans($consol);
 
-		// echo "sorted:<br>";
-		// var_dump($consol);
+
 
 		return $consol;
 		
@@ -93,7 +121,6 @@ class Scheduler {
 		*/
 
 
-		// var_dump($client);
 
 		$events = array();
 		$freeTimes = array();
@@ -106,8 +133,8 @@ class Scheduler {
 		$events = $this->makeEventList( $winStart, $winEnd, $users, $client );
 
 
-		// echo "eventlist:<br>";
-		// var_dump($events);
+
+
 		// make free time list
 		$freeTimes = $this->makeFreeTimes( $winStart, $winEnd, $events);
 
@@ -154,18 +181,23 @@ class Scheduler {
 			* returns: events
 			* parameters: event list, list of users
 			*/
+		
+
+
+		$gTimeS = $winStart->format(DateTime::ATOM);
+		$gTimeE = $winEnd->format(DateTime::ATOM);
+
+
+
 		$eventList = array();
 		$tz = 'America/Los_Angeles';
 		$freebusy = new Google_FreeBusyRequest();
-		$freebusy->setTimeMin($winStart->format(DateTime::RFC3339));
-		$freebusy->setTimeMax($winEnd->format(DateTime::RFC3339));
+		$freebusy->setTimeMin($gTimeS);
+		$freebusy->setTimeMax($gTimeE);
 		$freebusy->setTimeZone($tz);
 		$item = new Google_FreeBusyRequestItem();
 
-		// $emails = array();
-		// foreach ($ as $key => $value) {
-		// 	# code...
-		// }
+
 
 		foreach ($users as $user){
 
@@ -178,17 +210,18 @@ class Scheduler {
 			
 			$cals = $request['calendars'];
 
-
 			
-
 	   	$busys = $cals[$user->email]['busy']; //get user's busys
+
 	   	
 	   	foreach ($busys as $busy) {
 	   		$eventList[] = new Span(new DateTime($busy['start']), new DateTime($busy['end']));
 	   	}
 		}
 		
+		
 		return $eventList;
+
 	}
 
 	

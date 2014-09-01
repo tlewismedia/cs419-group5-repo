@@ -47,9 +47,11 @@ public $end = null;
 		/*****************************************************************************
 		* parameters:  reference to list os spans
 		*/
-		function compareSpans($s1, $s2) {
-			if($s1->start == $s2->start){ return 0 ; }
-			return ($s1->start < $s2->start) ? -1 : 1;
+		if (!function_exists('compareSpans')){
+			function compareSpans($s1, $s2) {
+				if($s1->start == $s2->start){ return 0 ; }
+				return ($s1->start < $s2->start) ? -1 : 1;
+			}
 		}
 
 		usort($spans, 'compareSpans');
