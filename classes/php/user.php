@@ -14,9 +14,21 @@ class User {
   * Method to check conflict return bool value
   
   */
-  public function printUser($firstName, $lastName, $email ) {
-    echo $firstName;
-	  echo $lastName;
-	   echo $email;
+  public function printUser($users) {
+
+    var_dump($users);
+
+    echo "<br>";
+    $i = 1;
+    foreach ($users as $user) {
+      echo $i.") ".$user->firstName." ".
+        $user->lastName.", ".$user->email."<br>";
+      $i++;
+    }
+
+
+    //  echo $firstName;
+	   // echo $lastName;
+	   // echo $email;
   } 
 }

@@ -153,23 +153,28 @@ class Scheduler {
 		
 		//check if first event starts the same time window starts
 
-		
+		if (count($events)){ //if there are any events
 
-		if ($winStart == $events[0]->start){
-			$start = $events[0]->end;
-			$i++;
+			if ($winStart == $events[0]->start){
+				$start = $events[0]->end;
+				$i++;
+			} else {
+				$start = $winStart;
+			}
+
+			// make spans out of times between event
+			for ($i; $i < $count; $i++){
+				
+			   $span = new Span( $start, $events[$i]->start);
+			   $freeTimes[] = $span;
+			   $start = $events[$i]->end;
+			}
+			$freeTimes[] = new Span( $start, $winEnd);
 		} else {
-			$start = $winStart;
-		}
+			//the whole window is open
 
-		// make spans out of times between event
-		for ($i; $i < $count; $i++){
-			
-		   $span = new Span( $start, $events[$i]->start);
-		   $freeTimes[] = $span;
-		   $start = $events[$i]->end;
+			$freeTimes[] = new Span( $winStart, $winEnd);
 		}
-		$freeTimes[] = new Span( $start, $winEnd);
 		
 
 		return $freeTimes;
