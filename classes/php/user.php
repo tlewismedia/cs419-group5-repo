@@ -4,31 +4,26 @@
 */
 class User {
 
-   public function __construct($firstName,$lastName,$email) {
-      $this->firstName = $firstName;
-		  $this->lastName = $lastName;
-		  $this->email = $email;
-    }
+	public function __construct($firstName,$lastName,$email) {
+		$this->firstName = $firstName;
+		$this->lastName = $lastName;
+		$this->email = $email;
+	}
 	
-  /*
-  * Method to check conflict return bool value
-  
-  */
-  public function printUser($users) {
+	public function printUser($users) {
+		/*****************************************************************************
+		* prints a list of users
+		* parameters: list of Users
+		*/
 
-    var_dump($users);
+		var_dump($users);
 
-    echo "<br>";
-    $i = 1;
-    foreach ($users as $user) {
-      echo $i.") ".$user->firstName." ".
-        $user->lastName.", ".$user->email."<br>";
-      $i++;
-    }
-
-
-    //  echo $firstName;
-	   // echo $lastName;
-	   // echo $email;
-  } 
+		echo "<br>";
+		$i = 1;
+		foreach ($users as $user) {
+			echo $i.") ".$user->firstName." ".
+				$user->lastName.", ".$user->email."<br>";
+			$i++;
+		}
+	} 
 }

@@ -35,15 +35,10 @@ class Scheduler {
 
 		// for each user, get their events
 			// if none of their events conflict with the window, they are included on free user list
-
 		
-
 		foreach ($users as $user){
 			$singleUserArr = array($user);
 			$userEvents = $this->makeEventList( $winStart, $winEnd, $singleUserArr, $client );
-
-
-
 
 			$include = true;
 
@@ -62,23 +57,6 @@ class Scheduler {
 
 	}
 
-	function checkForConflicts( $interval, $events )
-	{
-		/*****************************************************************************
-		* returns: true if no conflicts
-		* parameters: span interval, span list events
-		* precond: list of users > 0, span length > 0
-		*
-		* used to determine if an interval conflicts with a set of events
-		*/
-
-		foreach ($events as $event){
-			if (isConflict($event, $interval))
-				return false;
-		}
-		return true;
-
-	}
 
 	function makeEventList( $winStart, $winEnd, $users, $client )
 	{
@@ -186,13 +164,9 @@ class Scheduler {
 			* returns: events
 			* parameters: event list, list of users
 			*/
-		
-
 
 		$gTimeS = $winStart->format(DateTime::ATOM);
 		$gTimeE = $winEnd->format(DateTime::ATOM);
-
-
 
 		$eventList = array();
 		$tz = 'America/Los_Angeles';
@@ -201,8 +175,6 @@ class Scheduler {
 		$freebusy->setTimeMax($gTimeE);
 		$freebusy->setTimeZone($tz);
 		$item = new Google_FreeBusyRequestItem();
-
-
 
 		foreach ($users as $user){
 
@@ -224,128 +196,105 @@ class Scheduler {
 	   	}
 		}
 		
-		
 		return $eventList;
-
 	}
 
 	
 
 	function getCourseEvents($events, $users){
 
-	// ****************************************************************************
-	// * returns: void
-	// * parameters: refernce to event list, list of users
+		// ****************************************************************************
+		// * returns: void
+		// * parameters: refernce to event list, list of users
 
 
-	//get events from courses DB for each user
+		//get events from courses DB for each user
 
-	$output = "";
-	$db = new MyDB();
+		$output = "";
+		$db = new MyDB();
 
-	
-
-	$emails = array();
-	foreach ($users as $user){
-		$emails[] = $user->email;
-	}
-
-
-  // http://stackoverflow.com/questions/7538927/mysql-select-statement-with-php-array
- 
-
-
-  $userids = "p.email = '".implode("' \n   OR p.email = '",$emails)."'";
-
-  // ChromePhp::log($userids);
-
-	$sel = "SELECT p.firstName, c.days, c.startDate, c.endDate, c.startTime, c.endTime   FROM Courses c
-	INNER JOIN CoursesProfs cp ON cp.cid = c.prof
-	INNER JOIN Profs p ON p.email = cp.pid
-	WHERE $userids";
-
-
-	$result = $db->query($sel);
-
-
-   $courses = array();
-
-   $i = 0;
-
-   //get all the coursess for each class, store in courses
-  while($res = $result->fetchArray(SQLITE3_ASSOC)){
-		$courses[$i]['days'] = str_split($res['days']); //convert to array of char
-
-
-		$courses[$i]['startDate'] = DateTime::createFromFormat('m/d/y', $res['startDate']);
-
-
-		$courses[$i]['endDate'] = DateTime::createFromFormat('m/d/y',$res['endDate']);
-		
-    //format start time
-    if (strlen($res['startTime']) == 3) {
-			$res['startTime'] = '0'.$res['startTime']; //prepend 0 if only 3 digits
+		$emails = array();
+		foreach ($users as $user){
+			$emails[] = $user->email;
 		}
-		$tempTime = substr($res['startTime'], 0, 2).':'.substr($res['startTime'], 2, 2);
-		$courses[$i]['startTime'] = DateTime::createFromFormat('H:i', $tempTime);
-		
 
-    //format start time
-    if (strlen($res['endTime']) == 3) {
-      $res['endTime'] = '0'.$res['endTime']; //prepend 0 if only 3 digits
-    }
+	  // http://stackoverflow.com/questions/7538927/mysql-select-statement-with-php-array
+	  $userids = "p.email = '".implode("' \n   OR p.email = '",$emails)."'";
 
-    $tempTime = substr($res['endTime'], 0, 2).':'.substr($res['endTime'], 2, 2);
-		$courses[$i]['endTime'] = DateTime::createFromFormat('H:i', $tempTime);
+	  // ChromePhp::log($userids);
 
-		$i++;
-  }
-
-  //checking starttimes
-  foreach ($courses as $course) {
-
-  }
+		$sel = "SELECT p.firstName, c.days, c.startDate, c.endDate, c.startTime, c.endTime   FROM Courses c
+		INNER JOIN CoursesProfs cp ON cp.cid = c.prof
+		INNER JOIN Profs p ON p.email = cp.pid
+		WHERE $userids";
 
 
-   $i = 0;
-   $spans = array();
-   foreach ($courses as $course) {
-
-   	foreach ($course['days'] as $letter){ //for each letter day of course
-   		$curDate = $this->getFirstDateForDay($course['startDate'], $letter);
-   		while ($curDate <= $course['endDate']){  #add all spans for that day within the window
-
-                // date = $curDate.date()
-                $year = $curDate->format('Y');
-                $month = $curDate->format('m');
-                $day = $curDate->format('d');
-                $shour = $course['startTime']->format('H');
-                $smin = $course['startTime']->format('i');
-                $ehour = $course['endTime']->format('H');
-                $emin = $course['endTime']->format('i');
-
-                $startString = $year.$month.$day.$shour.$smin;
-                $eventDateTimeStart = DateTime::createFromFormat('YmdHi', $startString);
-
-                $endString = $year.$month.$day.$ehour.$emin;
-                $eventDateTimeEnd = DateTime::createFromFormat('YmdHi', $endString);
-                $spans[$i]['start'] =  $eventDateTimeStart;
-                $spans[$i]['end'] =  $eventDateTimeEnd;
+		$result = $db->query($sel);
 
 
-                // newSpan = Span( eventDateTimeStart, eventDateTimeEnd )
+	   $courses = array();
 
-                // events.append(newSpan)
+	   $i = 0;
 
-                
-                $curDate->modify('+7 day');
+	   //get all the coursess for each class, store in courses
+		while($res = $result->fetchArray(SQLITE3_ASSOC)){
+			$courses[$i]['days'] = str_split($res['days']); //convert to array of char
+			$courses[$i]['startDate'] = DateTime::createFromFormat('m/d/y', $res['startDate']);
+			$courses[$i]['endDate'] = DateTime::createFromFormat('m/d/y',$res['endDate']);
+			
+			//format start time
+			if (strlen($res['startTime']) == 3) {
+					$res['startTime'] = '0'.$res['startTime']; //prepend 0 if only 3 digits
+			}
+			$tempTime = substr($res['startTime'], 0, 2).':'.substr($res['startTime'], 2, 2);
+			$courses[$i]['startTime'] = DateTime::createFromFormat('H:i', $tempTime);
+			
 
-   			$i++;
-   		}//while
-   	} //each
-  } //each
-  return $spans;
-}//getCourseEvents
+	    	//format end time
+	    	if (strlen($res['endTime']) == 3) {
+	     		$res['endTime'] = '0'.$res['endTime']; //prepend 0 if only 3 digits
+	    	}
+	   	$tempTime = substr($res['endTime'], 0, 2).':'.substr($res['endTime'], 2, 2);
+			$courses[$i]['endTime'] = DateTime::createFromFormat('H:i', $tempTime);
+
+			$i++;
+	 	}
+
+	 	//checking starttimes
+	  
+	   $i = 0;
+	   $spans = array();
+	   foreach ($courses as $course) {
+
+	   	foreach ($course['days'] as $letter){ //for each letter day of course
+	   		$curDate = $this->getFirstDateForDay($course['startDate'], $letter);
+	   		while ($curDate <= $course['endDate']){  #add all spans for that day within the window
+
+	                // date = $curDate.date()
+	                $year = $curDate->format('Y');
+	                $month = $curDate->format('m');
+	                $day = $curDate->format('d');
+	                $shour = $course['startTime']->format('H');
+	                $smin = $course['startTime']->format('i');
+	                $ehour = $course['endTime']->format('H');
+	                $emin = $course['endTime']->format('i');
+
+	                $startString = $year.$month.$day.$shour.$smin;
+	                $eventDateTimeStart = DateTime::createFromFormat('YmdHi', $startString);
+
+	                $endString = $year.$month.$day.$ehour.$emin;
+	                $eventDateTimeEnd = DateTime::createFromFormat('YmdHi', $endString);
+	                $spans[$i]['start'] =  $eventDateTimeStart;
+	                $spans[$i]['end'] =  $eventDateTimeEnd;
+
+	                $curDate->modify('+7 day');
+
+	   				$i++;
+	   		}//while
+	   	} //each
+	  	} //each
+	  return $spans;
+	}//getCourseEvents
 
   
 	function getFirstDateForDay( $startDate, $letter){
@@ -355,8 +304,6 @@ class Scheduler {
     #
     # ex: If the class is on M and W starting on 08/14/2014, we can use this function to
     #     find the first W.
-
-   // date("N", $timestamp)
 
 		$DAYS = array(
 			'M'=> 1,
@@ -382,24 +329,24 @@ class Scheduler {
 
 
 	function consolidateSpans ( $spans ){
-	 /****************************************************************************
-        * returns: a list of spans
-        * parameters: span list
-        * precond: list of users > 0, window start is in future
-        */
+	/****************************************************************************
+	* returns: a list of spans
+	* parameters: span list
+	* precond: list of users > 0, window start is in future
+	*/
 
-			foreach ($spans as $cur){
-				foreach ($spans as $other) {
-					if ($cur->isConflict( $cur, $other )){
-						$new = $this->combineSpans( $cur, $other);
-            $spans[array_search($cur, $spans)] = $new;
-						if ($cur != $other) unset($spans[array_search($other, $spans)]);
-					} //if
-				}// foreach
-			} //foreach 	
-			
-			return $spans;
-}
+		foreach ($spans as $cur){
+			foreach ($spans as $other) {
+				if ($cur->isConflict( $cur, $other )){
+					$new = $this->combineSpans( $cur, $other);
+		   $spans[array_search($cur, $spans)] = $new;
+					if ($cur != $other) unset($spans[array_search($other, $spans)]);
+				} //if
+			}// foreach
+		} //foreach 	
+
+		return $spans;
+	}
 
 function combineSpans( $cur, $other ){
         /****************************************************************************

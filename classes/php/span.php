@@ -41,9 +41,7 @@ public $end = null;
   }
 	
 
-
-	public function sortSpans(&$spans)
-	{
+	public function sortSpans(&$spans){
 		/*****************************************************************************
 		* parameters:  reference to list os spans
 		*/
@@ -55,14 +53,7 @@ public $end = null;
 		}
 
 		usort($spans, 'compareSpans');
-
-		// echo "in sort, post:<br>";
-		// var_dump($spans);	
 		  	
 	}
-
-	
-	
-	
-  
+ 
 }
