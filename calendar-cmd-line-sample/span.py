@@ -104,3 +104,8 @@ class timeConv:
     def stringtodt(timeVal):
         return datetime.datetime.strptime(timeVal, "%d %b %Y %H:%M")
 
+    @staticmethod
+    def dttostring( timeVal ):
+        v = timeVal.strftime("%a, %d %b %Y %H:%M")
+        return v
+

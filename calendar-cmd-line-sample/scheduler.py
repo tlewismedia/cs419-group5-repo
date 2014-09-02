@@ -140,10 +140,8 @@ class Scheduler:
             if winStart != winEnd:
                 freeSpan = Span( winStart, winEnd)
                 freeTimes.append(freeSpan)
-            print len(freeTimes)
+            freeTimes = Scheduler.eventsInSpan (freeTimes, winStart, winEnd)
             Span.consolidateSpans(freeTimes)
-            print len(freeTimes)
-
         return freeTimes
 
     @staticmethod
@@ -188,7 +186,7 @@ class Scheduler:
             # add course span for each day
             for letter in daysArr:  #for each day of that class
 
-                curDate = getFirstDateForDay(startDate, letter)  #returns a datetime
+                curDate = Scheduler.getFirstDateForDay(startDate, letter)  #returns a datetime
                 events =[]
                 while (curDate <= endDate):  #add all spans for that day within the window
 
@@ -216,7 +214,7 @@ class Scheduler:
             return events
 
 
-
+    @staticmethod
     def getFirstDateForDay( startDate, letter):
     ######################################################################
     # returns: dateTime for first occurance of day (name) after the startDate
@@ -226,7 +224,7 @@ class Scheduler:
     #     find the first W.
 
         day1 = int(datetime.datetime.strftime( startDate, "%w"))
-        day2 = DAYS[letter]
+        day2 = Scheduler.DAYS[letter]
 
         delta = (day2 + 7 - day1) % 7  #find num days to add
         newDate = startDate + datetime.timedelta(days=delta)
@@ -234,22 +232,29 @@ class Scheduler:
         # print newDate
         return newDate
 
-
-    def findFreeUsers( emails, span ):
+    @staticmethod
+    def findFreeUsers(emails, reqStart, reqEnd):
         ######################################################################
         # returns: a list of available users
         # parameters: a list of users, [ window start, window end ]
         # precond: list of users > 0, window start is in future,
         # window end is reasonable
         availableUsers =[]
-        reqStart = timeConv.forGoogle(span.start)
-        reqEnd = timeConv.forGoogle(span.end)
+        span = Span(reqStart, reqEnd)
+        reqStart = timeConv.forGoogle(reqStart)
+        reqEnd = timeConv.forGoogle(reqEnd)
         for email in emails:
             free = True
-            eventList = getCalEvents(email, reqStart, reqEnd)
-            Span.printSpans(eventList)
+            user = [email]
+            eventList = Scheduler.getCalEvents(email, reqStart, reqEnd)
             for event in eventList:
-                if Span.isConflict (event, span):
+                event.printSpan()
+            courseList = Scheduler.getCourseEvents(user)
+            if isinstance(courseList, list):
+                eventList = eventList + courseList
+            for event in eventList:
+
+                if Span.isConflict (span, event):
                     free = False
             if free == True:
                 availableUsers.append(email)
@@ -265,27 +270,69 @@ class Scheduler:
 
         span = Span(winStart, winEnd)
         events = [span]
-        winStart = timeConv.forGoogle(winStart)
-        winEnd = timeConv.forGoogle(winEnd)
+        events.pop(0)
+        gStart = timeConv.forGoogle(winStart)
+        gEnd = timeConv.forGoogle(winEnd)
         for user in users:
-
-            eventList = Scheduler.getCalEvents(user, winStart, winEnd)
-            events += eventList
+            eventList = Scheduler.getCalEvents(user, gStart, gEnd)
+            if isinstance(eventList, list):
+                events += eventList
         courseList = Scheduler.getCourseEvents(users)
         if isinstance(courseList, list):
             eventList = eventList + courseList
         events += eventList
-        print len(events)
-        events.pop(0)
         Span.sortSpans(events)
-        print len(events)
-        for event in events:
-            event.printSpan()            
-            #print isinstance(event, Span)
+        events = Scheduler.eventsInSpan (events, winStart, winEnd)
         Span.consolidateSpans(events)
-        print len(events)
-        for event in events:
-            event.printSpan()
+        #for event in events:
+            #event.printSpan()
             #print isinstance(event, Span)
         Span.sortSpans(events)
         return events
+
+    @staticmethod
+    def eventsInSpan( events, winStart, winEnd ):
+        ######################################################################
+        # returns: a list of spans
+        # parameters: a list of users, [ window start, window end ]
+        # precond: list of users > 0, window start is in future, window end
+        # is reasonable
+        span = Span(winStart, winEnd)
+        inSpan = [span]
+        inSpan.pop(0)
+        for event in events:
+            if event.start >= winStart or event.end <= winEnd:
+                inSpan.append(event)
+        events = inSpan
+        return events
+
+    @staticmethod
+    def curseFreeUsers(users, winStart, winEnd):
+        start = datetime.datetime.strptime(winStart, "%m/%d/%Y %H:%M")
+        end = datetime.datetime.strptime(winEnd, "%m/%d/%Y %H:%M")
+        freeUsers = Scheduler.findFreeUsers(users, start, end)
+        userstring = ""
+        for user in freeUsers:
+            userstring += user + ", "
+        return userstring
+
+    @staticmethod
+    def curseFreeTimes(users, winStart = currentTime, winEnd = in30days):
+        if isinstance (winStart, datetime.datetime):
+            start = winStart
+        else:
+            start = datetime.datetime.strptime(winStart, "%m/%d/%Y %H:%M")
+        if isinstance (winEnd, datetime.datetime):
+            end = winEnd
+        else:
+            end = datetime.datetime.strptime(winEnd, "%m/%d/%Y %H:%M")
+        times = Scheduler.findFreeTimes(users, start, end)
+        timestring = ""
+        for time in times:
+            s = timeConv.dttostring(time.start)
+            e = timeConv.dttostring(time.end)
+            timestring += s + " - " +e +"\n"
+        return timestring
+            
+        
+
