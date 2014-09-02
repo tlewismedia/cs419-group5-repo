@@ -16,7 +16,7 @@ class User {
 		* parameters: list of Users
 		*/
 
-		var_dump($users);
+		// var_dump($users);
 
 		echo "<br>";
 		$i = 1;

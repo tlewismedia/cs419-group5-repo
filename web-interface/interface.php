@@ -45,21 +45,23 @@ if (isset($_POST['name'])) {
 	$users = createUsersFromEmails($names);
 	
 	if (!$valid){
-		echo "INVALID RANGE";
+		echo "<div id='result'>INVALID RANGE</div>";
 	} else {
 	
 		if ($task == 'time') {
 			//free times
 			
 	  		$free = $sch->findFreeTimes($winStart, $winEnd, $users, $client);
-	  		echo "<h2>Free Times for date range: ".$winStart->format('Y-m-d H:i')." to ".$winEnd ->format('Y-m-d H:i')."</h2>";
+	  		echo "<div id='result'><h3>Free Times for date range:<br> ".$winStart->format('Y-m-d H:i')." to ".$winEnd ->format('Y-m-d H:i')."</h3>";
 	  		$free[0]->printSpans($free);
+	  		echo "</div>";
 
 		} else if ($task == 'user'){
 			//free users
 			$free = $sch->findFreeUsers($users, $winStart, $winEnd, $client);
-			echo "<h2>People available for date range: ".$winStart->format('Y-m-d H:i')." to ".$winEnd ->format('Y-m-d H:i')."</h2>";
+			echo "<div id='result'><h3>People available for date range: <br>".$winStart->format('Y-m-d H:i')." to ".$winEnd ->format('Y-m-d H:i')."</h3>";
 			$free[0]->printUser($free);
+			echo "</div>";
 		} else {
 			echo "Invalid Input";
 		}
@@ -102,80 +104,131 @@ function isDateRangeValid($winStart, $winEnd){
 
 	<script src="/lib/jquery-2.1.1.min.js"></script>
   <script src="/lib/jquery-ui.min.js"></script>
-  <link rel="stylesheet" href="/lib/jquery-ui.min.css">
+  <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
   
-  
-  <script>
-  $(function() {
-    $( "#dateStartPicker" ).datepicker();
-    $( "#dateEndPicker" ).datepicker();
-    $('#scrollDefaultExample').timepicker({ 'scrollDefault': 'now' });
-  });
-  </script>
+ 
 
 
 </head>
 <body>
 
-<h1>Web Interface</h1>
+<style>
+html {
+    height: 100%;
+}
 
-<hr>
+	body{
+	height: 100%;
+    margin: 0;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+		font-family: 'Roboto', sans-serif;
+		background: rgb(125,185,232); /* Old browsers */
+background: -moz-radial-gradient(center, ellipse cover,  rgba(125,185,232,1) 0%, rgba(30,87,153,1) 100%); /* FF3.6+ */
+background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(125,185,232,1)), color-stop(100%,rgba(30,87,153,1))); /* Chrome,Safari4+ */
+background: -webkit-radial-gradient(center, ellipse cover,  rgba(125,185,232,1) 0%,rgba(30,87,153,1) 100%); /* Chrome10+,Safari5.1+ */
+background: -o-radial-gradient(center, ellipse cover,  rgba(125,185,232,1) 0%,rgba(30,87,153,1) 100%); /* Opera 12+ */
+background: -ms-radial-gradient(center, ellipse cover,  rgba(125,185,232,1) 0%,rgba(30,87,153,1) 100%); /* IE10+ */
+background: radial-gradient(ellipse at center,  rgba(125,185,232,1) 0%,rgba(30,87,153,1) 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7db9e8', endColorstr='#1e5799',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+background-size: cover;
+	}
+	.form{
+		float: left;
+		width: 40%;
+		margin: 5%;
+	}
+	#main{
+		margin: 10% auto;
+		width: 70%;
+		background-color: #ECF8FF;
+		border-radius: 3px;
+		overflow: hidden;
+	}
+	#result{
+		text-align: center;
+		margin: 10% auto;
+		width: 70%;
+		background-color: #ECF8FF;
+		border-radius: 3px;
+		overflow: hidden;
+		padding-bottom: 10px;
+	}
+	h1{
+		text-align: center;
+	}
 
-<h2>Find Free Time</h2>
+	@media (max-width: 700px){
+		.form{
+			width: 90%;
+			margin: 5%;
+		}
+	}
+</style>
 
-<form method="post" action="interface.php">
-	<label>Attendees (select one or more)</label>
-	<p>
-	<select multiple name="name[]">
-	  <option value="testy1cs419g5@gmail.com">Roberta Golliher</option>
-	  <option value="testy2cs419g5@gmail.com">Kakhramon Gafurov</option>
-	  <option value="testy3cs419g5@gmail.com">Alexei Soldatov</option>
-	  <option value="testy4cs419g5@gmail.com">Sujita Sklenar</option>
-	</select>
-	</p>
-	<p>
-	<label for="Start">Start</label>
-	<input name="dtStart" type="datetime-local">
-	</p>
-	<p>
-	<label for="Start">End</label>
-	<input name="dtEnd" type="datetime-local">
-	</p>
-	<p>
-	<input type="hidden" name="task" value="time"> <!-- indicate its for findFreeTimes -->
-	<input type="submit" value="Find">
-	</p>
+<div id="main">
+	<h1>Web Interface</h1>
 
-
-</form>
-<hr>
-<h2>Find Free Users</h2>
-
-<form method="post" action="interface.php">
-	<label>Possible Attendees (select one or more)</label>
-	<p>
-	<select multiple name="name[]">
-	  <option value="testy1cs419g5@gmail.com">Roberta Golliher</option>
-	  <option value="testy2cs419g5@gmail.com">Kakhramon Gafurov</option>
-	  <option value="testy3cs419g5@gmail.com">Alexei Soldatov</option>
-	  <option value="testy4cs419g5@gmail.com">Sujita Sklenar</option>
-	</select>
-	</p>
-	<p>
-	<label for="Start">Start</label>
-	<input name="dtStart" type="datetime-local" required>
-	</p>
-	<p>
-	<label for="Start">End</label>
-	<input name="dtEnd" type="datetime-local" required>
-	</p>
-	<p>
-	<input type="hidden" name="task" value="user"> <!-- indicate its for findFreeUsers -->
-	<input type="submit" value="Find">
-	</p>
-
-
-</form>
 	
+	<section class="form">
+	<h2>Find Free Time</h2>
+
+		<form method="post" action="interface.php">
+			<label>Attendees (select one or more)</label>
+			<p>
+			<select multiple name="name[]">
+			  <option value="testy1cs419g5@gmail.com">Roberta Golliher</option>
+			  <option value="testy2cs419g5@gmail.com">Kakhramon Gafurov</option>
+			  <option value="testy3cs419g5@gmail.com">Alexei Soldatov</option>
+			  <option value="testy4cs419g5@gmail.com">Sujita Sklenar</option>
+			</select>
+			</p>
+			<p>
+			<label for="Start">Start</label><br>
+			<input name="dtStart" type="datetime-local">
+			</p>
+			<p>
+			<label for="Start">End</label><br>
+			<input name="dtEnd" type="datetime-local">
+			</p>
+			<p>
+			<input type="hidden" name="task" value="time"> <!-- indicate its for findFreeTimes -->
+			<input type="submit" value="Find">
+			</p>
+
+
+		</form>
+	</section>
+
+	<section class="form">
+		<h2>Find Free People</h2>
+
+		<form method="post" action="interface.php">
+			<label>Possible Attendees (select one or more)</label>
+			<p>
+			<select multiple name="name[]">
+			  <option value="testy1cs419g5@gmail.com">Roberta Golliher</option>
+			  <option value="testy2cs419g5@gmail.com">Kakhramon Gafurov</option>
+			  <option value="testy3cs419g5@gmail.com">Alexei Soldatov</option>
+			  <option value="testy4cs419g5@gmail.com">Sujita Sklenar</option>
+			</select>
+			</p>
+			<p>
+			<label for="Start">Start</label><br>
+			<input name="dtStart" type="datetime-local" required>
+			</p>
+			<p>
+			<label for="Start">End</label><br>
+			<input name="dtEnd" type="datetime-local" required>
+			</p>
+			<p>
+			<input type="hidden" name="task" value="user"> <!-- indicate its for findFreeUsers -->
+			<input type="submit" value="Find">
+			</p>
+
+
+		</form>
+	</section>
+</div> 
 </body>
 </html>
