@@ -332,7 +332,9 @@ class Scheduler:
             s = timeConv.dttostring(time.start)
             e = timeConv.dttostring(time.end)
             timestring += s + " - " +e +"\n"
-        return timestring
+        s = timeConv.dttostring(winStart)
+        e = timeConv.dttostring(winEnd)
+        return "All users are available these times between " + s + " and " + e + ":\n" +timestring
             
         
 
