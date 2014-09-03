@@ -38,14 +38,14 @@ while 1:
     if c == ord('s'):
         stdscr.refresh()
         row+=1
-        stdscr.addstr(row, 0, "Enter an start date and time:/n", curses.A_REVERSE)
-        start = stdscr.getstr(row,15)
+        stdscr.addstr(row, 0, "Enter an start date and time:\n", curses.A_REVERSE)
+        start = stdscr.getstr(row+1,0)
         row+=1
     if c == ord('e'):
         stdscr.refresh()
         row+=1
-        stdscr.addstr(row, 0, "Enter an end date and time:/n", curses.A_REVERSE)
-        end = stdscr.getstr(row,15)
+        stdscr.addstr(row, 0, "Enter an end date and time:\n", curses.A_REVERSE)
+        end = stdscr.getstr(row+1,0)
         row+=1
     if c == ord('w'):
         stdscr.refresh()
