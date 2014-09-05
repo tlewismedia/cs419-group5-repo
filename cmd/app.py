@@ -1,0 +1,100 @@
+#!/usr/bin/env python
+
+import curses
+from scheduler import *
+from time import sleep
+
+def runapp(stdscr):
+
+    users = []
+
+
+    while 1:
+        stdscr.clear()
+        row = 0
+        stdscr.addstr(row, 0, "Options u: add users, c: clear users, s: start time, e: end time, w: print who is available, t: print times available, Esc to quit",
+                  curses.A_REVERSE)
+        stdscr.refresh()
+        row+=2
+        c = stdscr.getch(row, 0)
+        if c == 27:
+            break  # Exit the while() when Esc is pressed
+        if c == ord('u'):
+            more = True
+            while more == True:
+                stdscr.refresh()
+                row+=1
+                stdscr.addstr(row, 0, "Enter User Email: ", curses.A_REVERSE)
+                s = stdscr.getstr(row,20)
+                users.append(s)
+                row+=1
+                stdscr.addstr(row, 0, "User added: " + s + " Are there more users? y/n",
+                      curses.A_REVERSE)
+                stdscr.refresh()
+                row+=1
+                resp = stdscr.getch(row, 0)
+                if resp == ord('y'):
+                    more= True
+                else:
+                    more = False
+        if c == ord('c'):
+            users = []
+        if c == ord('s'):
+            stdscr.refresh()
+            row+=1
+            stdscr.addstr(row, 0, "Enter an start date and time MM/DD/YYYY HH:MM:\n", curses.A_REVERSE)
+            start = stdscr.getstr(row+1,0)
+            row+=1
+        if c == ord('e'):
+            stdscr.refresh()
+            row+=1
+            stdscr.addstr(row, 0, "Enter an end date and time MM/DD/YYYY HH:MM:\n", curses.A_REVERSE)
+            end = stdscr.getstr(row+1,0)
+            row+=1
+        if c == ord('w'):
+            stdscr.refresh()
+            row+=1
+            if len(users) < 1:
+                stdscr.addstr(row, 0, "No users are specified, please add users.", curses.A_REVERSE)
+                continue
+            try:
+                who = Scheduler.curseFreeUsers(users, start, end)
+                stdscr.addstr(row, 0, "These users are available between " + start + " and " + end +":\n"+ s + "\nPress any key to continue", curses.A_REVERSE)
+            except NameError:
+                stdscr.addstr(row, 0, "Start and end times aren't specified, please add them.", curses.A_REVERSE)
+                stdscr.refresh()
+                sleep(2)
+                continue
+            stdscr.refresh()
+            stdscr.getch()
+        if c == ord('t'):
+            stdscr.refresh()
+            row+=1
+            if len(users) < 1:
+                stdscr.addstr(row, 0, "No users are specified, please add users.", curses.A_REVERSE)
+                stdscr.refresh()
+                sleep(2)
+                continue
+            try: 
+                times = Scheduler.curseFreeTimes(users, start, end)
+            except NameError:
+                times = Scheduler.curseFreeTimes(users)
+
+            stdscr.addstr(row, 0, times + "\n Press any key to continue", curses.A_REVERSE)
+            row+= (len(times)/35)
+            stdscr.refresh()
+            stdscr.getch()
+
+
+if __name__=='__main__':
+    try:
+	    stdscr=curses.initscr()
+	    curses.echo() ; curses.cbreak()
+	    stdscr.keypad(1)
+	    runapp(stdscr)			# Enter the main loop
+    finally:
+        stdscr.erase()
+        stdscr.refresh()
+    stdscr.keypad(0)
+    curses.echo() ; curses.nocbreak()
+    curses.endwin()	
